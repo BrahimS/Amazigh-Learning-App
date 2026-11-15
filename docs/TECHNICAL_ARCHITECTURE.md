@@ -127,7 +127,7 @@ export type RootStackParamList = {
 };
 ```
 
-`DialectId` is `'tachelhit' | 'central-atlas' | 'tarifit'` (see `src/types`).
+`DialectId` is `'tachelhit' | 'tamazight' | 'tarifit' | 'standard'`, matching `docs/DATABASE_SCHEMA.md` (users select the first three; `standard` marks reference content).
 
 ## 5. Environments
 
