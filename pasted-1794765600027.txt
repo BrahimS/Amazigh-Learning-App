@@ -1,0 +1,495 @@
+# MASTER PROMPT: GitHub Project Management Setup
+## Project: Amazigh Learning App
+
+### 1. Role and Responsibilities
+
+Act as a Senior Project Manager, Agile Scrum Master, Product Owner, and Software Development Lead.
+
+Your mission is to create a complete, professional GitHub project management environment for the development of a Moroccan Amazigh language-learning mobile application.
+
+Use GitHub as the central platform for managing:
+- Project planning.
+- Product backlog.
+- User stories.
+- Development tasks.
+- Bugs and technical improvements.
+- Kanban workflow.
+- Sprint planning.
+- Sprint tracking.
+- Milestones.
+- Documentation.
+- Development progress.
+
+Do not merely provide recommendations. Use GitHub capabilities and available authenticated tools to create the actual project resources.
+
+### 2. Project Information
+
+**Project name:** Amazigh Learning App
+
+**Repository name:** amazigh-learning-app
+
+**Project description:**
+
+A modern, interactive mobile application designed to teach Moroccan Amazigh (Tamazight) through structured courses, interactive exercises, audio pronunciation, vocabulary learning, Tifinagh alphabet recognition, and cultural discovery.
+
+**Technology stack:**
+- React Native.
+- TypeScript.
+- Firebase Authentication.
+- Firebase Firestore.
+- Firebase Storage.
+- Firebase Cloud Messaging.
+- Adobe XD.
+- React Navigation.
+- Zustand or Redux Toolkit.
+
+### 3. GitHub Repository Setup
+
+Create a GitHub repository named:
+
+`amazigh-learning-app`
+
+Repository requirements:
+- Use a clear and professional README.md.
+- Create a structured project directory.
+- Add a LICENSE file, with the license selected explicitly.
+- Create a CONTRIBUTING.md file.
+- Create a CODE_OF_CONDUCT.md file.
+- Add a GitHub issue template.
+- Add a pull request template.
+- Create a `.gitignore` appropriate for React Native and Firebase.
+- Configure branch protection recommendations.
+- Document the development workflow.
+
+Suggested branches:
+- `main`: Production-ready code.
+- `develop`: Integration branch.
+- `feature/*`: New functionality.
+- `bugfix/*`: Bug fixes.
+- `hotfix/*`: Critical production fixes.
+
+Do not commit Firebase credentials, private keys, or secrets.
+
+### 4. GitHub Projects – Kanban Board
+
+Create a GitHub Projects board named:
+
+**Amazigh Learning – Development Board**
+
+Configure the following columns or status values:
+
+1. Backlog
+2. Ready
+3. In Progress
+4. In Review
+5. Testing
+6. Done
+
+Configure the following project fields:
+
+- Status.
+- Priority.
+- Story Points.
+- Sprint.
+- Epic.
+- Assignee.
+- Due Date.
+- Issue Type.
+
+Create useful saved views:
+
+**View 1: Kanban Board**
+- Group by Status.
+- Display all active tasks.
+
+**View 2: Product Backlog**
+- Show all uncompleted issues.
+- Sort by Priority.
+
+**View 3: Current Sprint**
+- Filter by the active sprint.
+- Display sprint tasks and their status.
+
+**View 4: Roadmap**
+- Group issues by Epic.
+- Display milestones and delivery targets.
+
+**View 5: Bugs**
+- Display issues labelled bug.
+- Sort by severity and priority.
+
+### 5. GitHub Labels
+
+Create standardized labels.
+
+**Priority**
+- `priority:critical`
+- `priority:high`
+- `priority:medium`
+- `priority:low`
+
+**Issue types**
+- `type:feature`
+- `type:bug`
+- `type:task`
+- `type:documentation`
+- `type:technical-debt`
+- `type:research`
+
+**Technical areas**
+- `frontend`
+- `backend`
+- `firebase`
+- `database`
+- `ui-ux`
+- `audio`
+- `linguistic-content`
+- `testing`
+- `devops`
+
+**Workflow**
+- `needs-review`
+- `blocked`
+- `good-first-issue`
+
+### 6. Product Backlog – Epics and Issues
+
+Create the following epics and associated GitHub issues.
+
+#### EPIC 1 – Project Planning and Architecture
+
+- Define Product Requirements Document.
+- Define MVP scope.
+- Define technical architecture.
+- Define application navigation structure.
+- Define Firebase architecture.
+- Define development standards.
+- Document project requirements.
+
+#### EPIC 2 – UI/UX Design (Adobe XD)
+
+- Define brand identity.
+- Create color palette and typography.
+- Create reusable design components.
+- Design splash screen.
+- Design onboarding screens.
+- Design registration and login screens.
+- Design dialect selection.
+- Design learning dashboard.
+- Design course screens.
+- Design lesson interface.
+- Design quiz interface.
+- Design vocabulary screens.
+- Design Tifinagh learning screens.
+- Design profile and settings.
+- Create clickable Adobe XD prototype.
+
+#### EPIC 3 – React Native Foundation
+
+- Initialize React Native TypeScript project.
+- Configure application structure.
+- Configure React Navigation.
+- Configure state management.
+- Configure reusable components.
+- Configure theme and design tokens.
+- Configure error handling.
+- Configure environment variables.
+- Set up testing framework.
+
+#### EPIC 4 – Firebase Backend
+
+- Create Firebase project.
+- Configure Firebase Authentication.
+- Configure Firestore.
+- Configure Firebase Storage.
+- Configure Firebase Cloud Messaging.
+- Define Firestore collections.
+- Implement Firestore security rules.
+- Configure user roles.
+- Implement database services.
+- Test database access.
+
+#### EPIC 5 – Authentication and User Management
+
+- Implement user registration.
+- Implement login.
+- Implement logout.
+- Implement password recovery.
+- Implement user profile.
+- Implement language preferences.
+- Implement dialect selection.
+- Implement learning preferences.
+
+#### EPIC 6 – Learning Management System
+
+- Develop learning dashboard.
+- Implement course listing.
+- Implement course details.
+- Implement learning modules.
+- Implement lesson navigation.
+- Implement lesson completion.
+- Implement course progression.
+
+#### EPIC 7 – Interactive Exercises
+
+- Develop multiple-choice questions.
+- Develop translation exercises.
+- Develop word matching.
+- Develop sentence construction.
+- Develop fill-in-the-blank exercises.
+- Develop listening exercises.
+- Implement answer validation.
+- Implement scoring and feedback.
+
+#### EPIC 8 – Amazigh Vocabulary and Tifinagh
+
+- Create vocabulary data model.
+- Develop vocabulary library.
+- Implement vocabulary search.
+- Implement flashcards.
+- Implement spaced repetition.
+- Develop Tifinagh alphabet screen.
+- Implement letter recognition.
+- Add pronunciation recordings.
+- Validate linguistic content with native speakers.
+
+#### EPIC 9 – Audio and Pronunciation
+
+- Configure audio storage.
+- Implement audio player.
+- Implement word pronunciation.
+- Implement sentence pronunciation.
+- Implement playback speed controls.
+- Develop listening exercises.
+- Integrate native-speaker recordings.
+
+#### EPIC 10 – Gamification and Progress
+
+- Implement XP system.
+- Implement daily streaks.
+- Implement achievements.
+- Implement learning statistics.
+- Implement progress tracking.
+- Implement daily challenges.
+- Develop achievement interface.
+
+#### EPIC 11 – Cultural Discovery
+
+- Develop cultural content section.
+- Add Amazigh history articles.
+- Add traditions and celebrations.
+- Add proverbs and expressions.
+- Add regional cultural information.
+- Implement cultural content management.
+
+#### EPIC 12 – Testing and Deployment
+
+- Create unit tests.
+- Create integration tests.
+- Test authentication.
+- Test Firestore security.
+- Test navigation.
+- Test audio functionality.
+- Test Unicode Tifinagh rendering.
+- Perform Android testing.
+- Perform iOS testing.
+- Optimize application performance.
+- Prepare deployment documentation.
+
+### 7. User Story Format
+
+Every functional issue must follow this structure:
+
+**Title:** Clear description of the functionality.
+
+**User Story:**
+
+As a [type of user],
+I want [functionality],
+So that [benefit].
+
+**Description:**
+Explain the functionality and expected behavior.
+
+**Acceptance Criteria:**
+Define measurable conditions that must be satisfied before the issue can be closed.
+
+**Technical Requirements:**
+Specify implementation details, technologies, and dependencies.
+
+**Priority:** Critical / High / Medium / Low.
+
+**Story Points:** Estimate complexity using Fibonacci values (1, 2, 3, 5, 8, 13).
+
+**Labels:** Apply relevant GitHub labels.
+
+**Dependencies:** Identify related issues.
+
+### 8. Sprint Planning
+
+Use two-week Scrum sprints.
+
+Create the following initial sprint structure.
+
+#### Sprint 1 – Project Foundation and Architecture
+
+Goal: Establish the technical foundation and approve the product architecture.
+
+Tasks:
+- Complete the PRD.
+- Define MVP requirements.
+- Design technical architecture.
+- Initialize React Native TypeScript project.
+- Configure Firebase.
+- Design initial Firestore schema.
+- Establish GitHub development workflow.
+
+Expected deliverables:
+- Approved PRD.
+- Technical architecture documentation.
+- Working React Native project.
+- Connected Firebase environment.
+- Initial database schema.
+
+#### Sprint 2 – UI/UX and Authentication
+
+Goal: Establish the visual identity and user authentication system.
+
+Tasks:
+- Create Adobe XD design system.
+- Design onboarding screens.
+- Design login and registration screens.
+- Implement React Navigation.
+- Implement Firebase Authentication.
+- Implement user profile.
+- Implement dialect selection.
+
+#### Sprint 3 – Learning Dashboard and Courses
+
+Goal: Deliver the first functional learning experience.
+
+Tasks:
+- Develop learning dashboard.
+- Implement course listing.
+- Implement course details.
+- Create course and module data structures.
+- Implement lesson navigation.
+- Display learning progress.
+
+#### Sprint 4 – Interactive Learning
+
+Goal: Deliver the core educational experience.
+
+Tasks:
+- Implement vocabulary library.
+- Develop interactive quizzes.
+- Implement matching exercises.
+- Implement translation exercises.
+- Implement answer validation.
+- Implement lesson completion.
+
+#### Sprint 5 – Audio, Tifinagh and Gamification
+
+Goal: Introduce the distinctive learning features.
+
+Tasks:
+- Implement audio playback.
+- Integrate native-speaker recordings.
+- Develop Tifinagh alphabet learning.
+- Implement XP.
+- Implement daily streaks.
+- Implement achievements.
+
+#### Sprint 6 – Testing and MVP Release
+
+Goal: Prepare the MVP for initial users.
+
+Tasks:
+- Perform functional testing.
+- Test database security.
+- Validate linguistic content.
+- Test Android and iOS.
+- Fix critical bugs.
+- Optimize performance.
+- Prepare release documentation.
+
+### 9. Sprint Management Rules
+
+For every sprint:
+
+- Define a sprint goal.
+- Select issues from the product backlog.
+- Assign story points.
+- Identify dependencies.
+- Define acceptance criteria.
+- Track sprint progress.
+- Identify blockers.
+- Conduct sprint reviews.
+- Conduct sprint retrospectives.
+- Move unfinished tasks back to the backlog when appropriate.
+
+Never mark an issue as Done unless its acceptance criteria have been satisfied.
+
+Do not invent completed work or assign people who have not been identified.
+
+### 10. GitHub Milestones
+
+Create the following milestones:
+
+1. Project Foundation.
+2. UI/UX Design.
+3. Authentication and Backend.
+4. Learning Core.
+5. Interactive Exercises.
+6. Audio and Tifinagh.
+7. Gamification.
+8. MVP Release.
+
+Associate each issue with the appropriate milestone.
+
+### 11. Documentation
+
+Create a `/docs` directory containing:
+
+- `PRODUCT_REQUIREMENTS.md`
+- `TECHNICAL_ARCHITECTURE.md`
+- `DATABASE_SCHEMA.md`
+- `UI_UX_GUIDELINES.md`
+- `AGILE_WORKFLOW.md`
+- `SPRINT_PLAN.md`
+- `DEVELOPMENT_GUIDELINES.md`
+- `FIREBASE_SECURITY.md`
+
+Document all important technical and project management decisions.
+
+### 12. Final Execution Instructions
+
+Execute the project setup in the following order:
+
+1. Verify GitHub authentication and permissions.
+2. Check whether the repository already exists.
+3. Create the repository if necessary.
+4. Initialize project documentation.
+5. Create GitHub labels.
+6. Create GitHub milestones.
+7. Create the 12 epics.
+8. Create and link the backlog issues.
+9. Create the GitHub Projects Kanban board.
+10. Configure custom fields and saved views.
+11. Create the initial sprint.
+12. Assign relevant issues to Sprint 1.
+13. Verify all created resources and relationships.
+14. Provide the repository URL and project board URL.
+
+Important:
+- Use actual GitHub resources, not simulated examples.
+- Avoid creating duplicate repositories, labels, issues, or milestones.
+- Use clear issue titles and detailed descriptions.
+- Keep the backlog organized by priority and epic.
+- Create dependencies between related tasks where supported.
+- Do not start implementing application features during this setup phase.
+- Report any operations that could not be completed due to permissions or API limitations.
+
+### Final Objective
+
+Deliver a fully configured, professional GitHub Agile project management environment that allows a development team to manage the complete lifecycle of the Amazigh Learning App, from initial planning to MVP launch.
