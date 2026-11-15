@@ -24,7 +24,7 @@ The app is a client-heavy React Native application backed by Firebase managed se
 | Framework | React Native (CLI) + TypeScript | Native modules for audio and Firebase; type safety |
 | Firebase SDK | `@react-native-firebase/*` | Native SDKs, offline persistence, FCM support |
 | Navigation | React Navigation v7 (native stack + bottom tabs) | De-facto standard |
-| State | Zustand | Small API and easy persistence; Redux Toolkit is the alternative if complexity grows |
+| State | Zustand | **Decided (Sprint 1).** Small API and easy persistence; Redux Toolkit remains the documented fallback if complexity grows |
 | Server cache | TanStack Query (optional) | Caching and retries for Firestore reads |
 | Forms | React Hook Form + Zod | Validation for auth and profile |
 | Audio | `react-native-track-player` or `react-native-sound` (to be decided in "Implement audio player") | Playback speed, caching |
@@ -61,6 +61,74 @@ RootNavigator
     └── Profile    → Profile → Settings / Achievements / Statistics
 ```
 
+### 4.1 Navigation types
+
+Route names and params are typed in `src/types/navigation.ts` and shared with React Navigation. The canonical definitions:
+
+```ts
+export type AuthStackParamList = {
+  Splash: undefined;
+  Welcome: undefined;
+  Register: { dialect?: DialectId };
+  Login: undefined;
+  ForgotPassword: undefined;
+};
+
+export type OnboardingStackParamList = {
+  DialectSelection: undefined;
+  LearningPreferences: { dialect: DialectId };
+};
+
+export type LearnStackParamList = {
+  Dashboard: undefined;
+  CourseDetails: { courseId: string };
+  Module: { courseId: string; moduleId: string };
+  Lesson: { courseId: string; moduleId: string; lessonId: string };
+  Exercise: { lessonId: string; stepIndex: number };
+  LessonComplete: { lessonId: string; score: number };
+};
+
+export type VocabularyStackParamList = {
+  Library: { query?: string } | undefined;
+  WordDetails: { vocabularyId: string };
+  Flashcards: { deckId?: string };
+};
+
+export type TifinaghStackParamList = {
+  Alphabet: undefined;
+  LetterDetails: { letterId: string };
+  LetterQuiz: { letterIds?: string[] };
+};
+
+export type CultureStackParamList = {
+  CultureHome: undefined;
+  Article: { articleId: string };
+};
+
+export type ProfileStackParamList = {
+  Profile: undefined;
+  Settings: undefined;
+  Achievements: undefined;
+  Statistics: undefined;
+};
+
+export type MainTabParamList = {
+  Learn: NavigatorScreenParams<LearnStackParamList>;
+  Vocabulary: NavigatorScreenParams<VocabularyStackParamList>;
+  Tifinagh: NavigatorScreenParams<TifinaghStackParamList>;
+  Culture: NavigatorScreenParams<CultureStackParamList>;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
+};
+
+export type RootStackParamList = {
+  Auth: NavigatorScreenParams<AuthStackParamList>;
+  Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
+  Main: NavigatorScreenParams<MainTabParamList>;
+};
+```
+
+`DialectId` is `'tachelhit' | 'central-atlas' | 'tarifit'` (see `src/types`).
+
 ## 5. Environments
 
 | Environment | Firebase project | Purpose |
@@ -85,9 +153,9 @@ Firestore offline persistence is enabled. Downloaded lesson content and recently
 
 | # | Decision | Status |
 |---|----------|--------|
-| ADR-001 | React Native CLI over Expo (native Firebase and audio modules) | Proposed |
-| ADR-002 | Zustand for global state | Proposed |
-| ADR-003 | Content stored in Firestore, media in Storage, no custom backend for MVP | Proposed |
-| ADR-004 | Separate Firebase projects per environment | Proposed |
+| ADR-001 | React Native CLI over Expo (native Firebase and audio modules) | Accepted |
+| ADR-002 | Zustand for global state | Accepted |
+| ADR-003 | Content stored in Firestore, media in Storage, no custom backend for MVP | Accepted |
+| ADR-004 | Separate Firebase projects per environment | Accepted |
 
-Decisions are confirmed in the Sprint 1 issue "Define technical architecture".
+All four ADRs were accepted during Sprint 1 (issue "Define technical architecture", #15). Revisit ADR-002 only if state complexity grows beyond what Zustand handles comfortably.
