@@ -14,8 +14,13 @@ import {
   type Firestore,
 } from 'firebase/firestore';
 
-import { config, environment } from '@/config';
+import { config } from '@/config';
 import { AppError } from '@/utils/errors';
+import {
+  authEmulatorEndpoint,
+  firestoreEmulatorEndpoint,
+  shouldUseEmulators,
+} from './emulators';
 
 let cachedDb: Firestore | null = null;
 let cachedAuth: Auth | null = null;
@@ -29,28 +34,14 @@ const DEMO_PROJECT_ID = 'demo-amazigh-learning';
  */
 const DEMO_API_KEY = 'demo-api-key';
 
-function shouldUseEmulators(): boolean {
-  return (
-    environment === 'development' && config.emulators.firestoreHost !== ''
-  );
-}
-
-function emulatorEndpoint(
-  host: string,
-  fallbackPort: number,
-): { hostname: string; port: number } {
-  const [hostname, port] = host.split(':');
-  return { hostname, port: Number(port) || fallbackPort };
-}
-
 /**
  * Firebase JS SDK app for Firestore/Auth access.
  *
  * Only projectId/apiKey are needed here; native app ids and the sender id are
  * used by the native SDK configuration (issues #45/#46) once the Firebase
- * projects exist (issue #44). In development, when the emulator hosts are
- * configured, the reserved `demo-` project id is used so the app can run
- * before the real projects exist.
+ * projects exist (issue #44). In development the app uses the local emulators
+ * by default (see ./emulators.ts), which accept the reserved `demo-` project
+ * id, so the app runs before the real projects exist.
  */
 export function getFirebaseApp(): FirebaseApp {
   const existing = getApps().find(a => a.name === '[DEFAULT]');
@@ -73,17 +64,15 @@ export function getFirebaseApp(): FirebaseApp {
 }
 
 export function getFirestoreDb(): Firestore {
-  if (!cachedDb) {
-    const db = getFirestore(getFirebaseApp());
-    if (shouldUseEmulators()) {
-      const { hostname, port } = emulatorEndpoint(
-        config.emulators.firestoreHost,
-        8080,
-      );
-      connectFirestoreEmulator(db, hostname, port);
-    }
-    cachedDb = db;
+  if (cachedDb) {
+    return cachedDb;
   }
+  const db = getFirestore(getFirebaseApp());
+  if (shouldUseEmulators()) {
+    const { hostname, port } = firestoreEmulatorEndpoint();
+    connectFirestoreEmulator(db, hostname, port);
+  }
+  cachedDb = db;
   return cachedDb;
 }
 
@@ -95,11 +84,8 @@ export function getFirebaseAuth(): Auth {
     const auth = initializeAuth(getFirebaseApp(), {
       persistence: getReactNativePersistence(AsyncStorage),
     });
-    if (shouldUseEmulators() && config.emulators.authHost !== '') {
-      const { hostname, port } = emulatorEndpoint(
-        config.emulators.authHost,
-        9099,
-      );
+    if (shouldUseEmulators()) {
+      const { hostname, port } = authEmulatorEndpoint();
       connectAuthEmulator(auth, `http://${hostname}:${port}`, {
         disableWarnings: true,
       });

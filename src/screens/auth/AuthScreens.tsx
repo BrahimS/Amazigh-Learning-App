@@ -4,8 +4,8 @@ import { signInAnonymously } from 'firebase/auth';
 import { Button } from '@/components/Button';
 import { PlaceholderScreen } from '@/components/PlaceholderScreen';
 import { WelcomeCard } from '@/components/WelcomeCard';
-import { config } from '@/config';
 import { getFirebaseAuth } from '@/services/firebase/client';
+import { shouldUseEmulators } from '@/services/firebase/emulators';
 import { usePreferencesStore } from '@/store/preferencesStore';
 import { useSessionStore } from '@/store/sessionStore';
 import { useTheme } from '@/theme';
@@ -48,10 +48,7 @@ export function WelcomeScreen() {
   // #45/#46): signs in anonymously against the local Auth emulator and enters
   // the app with a local profile. Never shown outside development builds.
   const devGuestEnabled =
-    typeof __DEV__ !== 'undefined' &&
-    __DEV__ &&
-    config.emulators.firestoreHost !== '' &&
-    config.emulators.authHost !== '';
+    typeof __DEV__ !== 'undefined' && __DEV__ && shouldUseEmulators();
 
   const enterAsGuest = async () => {
     setLoading(true);

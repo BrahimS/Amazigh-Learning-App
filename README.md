@@ -81,6 +81,20 @@ native projects are generated on demand by `expo prebuild` (run automatically by
 
 ### Run
 
+**Recommended — one command:**
+
+```bash
+npm run dev:android   # Android emulator/device
+npm run dev:ios       # iOS simulator (macOS only)
+```
+
+`dev:*` starts the Firebase emulators (Firestore + Auth) if they are not already
+running, seeds the sample curriculum, then builds the dev client, installs it and
+starts Metro. Already-running emulators are reused and left alone; emulators
+started by the script stop when you quit (Ctrl+C).
+
+**Manual:**
+
 ```bash
 npm start          # Expo dev server (use with a dev build, see below)
 npm run android    # build + install the Android dev client on a connected device/emulator
@@ -89,6 +103,29 @@ npm run start:go   # Expo Go (limited: no custom native config yet)
 ```
 
 For hot-reload development, run `npm start` after `expo run:android` has installed the dev client.
+If port 8081 is busy, Expo offers another port — if the app cannot connect, open
+the dev menu and enter the URL Metro shows.
+
+### Firebase emulators in development
+
+Development builds talk to the local Firebase emulators **by default** — no
+configuration needed. The app picks the right address per platform:
+
+- Android emulator → `10.0.2.2` (the host machine)
+- iOS simulator / web → `localhost`
+
+To override (e.g. a **physical device**, which needs your machine's LAN IP), set
+`EXPO_PUBLIC_FIRESTORE_EMULATOR_HOST` / `EXPO_PUBLIC_AUTH_EMULATOR_HOST` in
+`.env.development` (or `.env.development.local`). To bypass the emulators in a
+development build, set `EXPO_PUBLIC_USE_EMULATORS=false`. Staging and production
+builds always use real Firebase.
+
+Standalone emulator helpers (the `dev:*` scripts wrap these):
+
+```bash
+npm run test:emulator   # Firestore rules tests against the emulators
+npm run seed:emulator   # (re)seed sample curriculum data
+```
 
 ### Environments
 
