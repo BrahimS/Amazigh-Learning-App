@@ -18,7 +18,7 @@ A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazi
 
 | Layer | Technology |
 |-------|-----------|
-| Mobile | React Native + TypeScript |
+| Mobile | React Native + TypeScript (Expo SDK 58, managed workflow) |
 | Navigation | React Navigation |
 | State | Zustand (Redux Toolkit is the documented alternative; see `docs/TECHNICAL_ARCHITECTURE.md`) |
 | Auth | Firebase Authentication |
@@ -65,41 +65,48 @@ A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazi
 
 ### Prerequisites
 
-- Node.js 22.11+ and npm
+- Node.js 22.13+ and npm
 - For Android: Android Studio (SDK 35+, platform-tools) and a JDK 17+
-- For iOS (macOS only): Xcode 16+ and CocoaPods
+- For iOS: a Mac with Xcode 16+ (or EAS Build for cloud builds)
 
 ### Setup
 
 ```bash
 npm install
-# iOS only (macOS):
-cd ios && pod install && cd ..
 ```
+
+This is an [Expo](https://expo.dev) managed-workflow app: the `android/` and `ios/`
+native projects are generated on demand by `expo prebuild` (run automatically by
+`expo run:android` / `expo run:ios`). Never commit them.
 
 ### Run
 
 ```bash
-npm start          # Metro bundler
-npm run android    # Android emulator or device
-npm run ios        # iOS simulator (macOS)
+npm start          # Expo dev server (use with a dev build, see below)
+npm run android    # build + install the Android dev client on a connected device/emulator
+npm run ios        # same for iOS (macOS only)
+npm run start:go   # Expo Go (limited: no custom native config yet)
 ```
+
+For hot-reload development, run `npm start` after `expo run:android` has installed the dev client.
 
 ### Environments
 
-Build-time environment config lives in `.env.development` / `.env.staging` / `.env.production`
-(see `.env.example`). Only **non-secret** values belong there — Firebase config files stay out of git.
+Expo inlines `EXPO_PUBLIC_*` variables into the JS bundle at build time, loaded from
+`.env.development` / `.env.staging` / `.env.production` (see `.env.example`). Only
+**non-secret** values belong there — Firebase config files stay out of git.
 
 ```bash
-npm run android:dev       # ENVFILE=.env.development
-npm run android:staging   # ENVFILE=.env.staging
-npm run android:prod      # ENVFILE=.env.production
+npm run android:dev       # EXPO_PUBLIC_APP_ENV=development
+npm run android:staging   # EXPO_PUBLIC_APP_ENV=staging
+npm run android:prod      # EXPO_PUBLIC_APP_ENV=production
 # same for ios:dev / ios:staging / ios:prod
 ```
 
-Android loads the matching file automatically (debug → development, release → production);
-`ENVFILE` overrides it. On iOS, add the `react-native-config` Run Script build phase once per
-`docs/FIREBASE_SECURITY.md` setup (tracked with the Firebase issues).
+Expo loads `.env.development` automatically for dev builds and `.env.production` for
+release builds; the `*:staging` scripts set `EXPO_PUBLIC_APP_ENV=staging` (pair it with
+`.env.staging` via your shell or EAS environment variables). See
+`docs/FIREBASE_SECURITY.md` for Firebase project setup.
 
 ### Checks
 

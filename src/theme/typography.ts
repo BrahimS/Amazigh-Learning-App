@@ -1,6 +1,6 @@
 /**
  * Typography tokens — mirror `docs/UI_UX_GUIDELINES.md`.
- * Family names match the bundled font files in `src/assets/fonts` (linked via react-native-asset).
+ * Family names match the bundled font files in `src/assets/fonts` (embedded via the expo-font config plugin).
  */
 export const fonts = {
   latin: {
