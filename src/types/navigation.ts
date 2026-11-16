@@ -25,8 +25,13 @@ export type LearnStackParamList = {
   CourseDetails: { courseId: string };
   Module: { courseId: string; moduleId: string };
   Lesson: { courseId: string; moduleId: string; lessonId: string };
-  Exercise: { lessonId: string; stepIndex: number };
-  LessonComplete: { lessonId: string; score: number };
+  Exercise: { courseId: string; moduleId: string; lessonId: string };
+  LessonComplete: {
+    lessonId: string;
+    score: number;
+    maxScore: number;
+    xpReward: number;
+  };
 };
 
 export type VocabularyStackParamList = {
