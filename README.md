@@ -2,7 +2,7 @@
 
 A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazight)**. It offers structured courses, interactive exercises, audio pronunciation, vocabulary practice, Tifinagh alphabet recognition and cultural discovery.
 
-> **Status:** Planning / setup phase. No application features have been implemented yet. Work is tracked on the [Amazigh Learning – Development Board](https://github.com/users/BrahimS/projects) and in [Issues](https://github.com/BrahimS/Amazigh-Learning-App/issues).
+> **Status:** Sprint 1 foundation in review. The app shell (navigation, state, theme, components) is scaffolded; feature screens are placeholders tracked in [Issues](https://github.com/BrahimS/Amazigh-Learning-App/issues) and on the [Development Board](https://github.com/users/BrahimS/projects/17).
 
 ## Features (MVP scope)
 
@@ -84,6 +84,22 @@ npm start          # Metro bundler
 npm run android    # Android emulator or device
 npm run ios        # iOS simulator (macOS)
 ```
+
+### Environments
+
+Build-time environment config lives in `.env.development` / `.env.staging` / `.env.production`
+(see `.env.example`). Only **non-secret** values belong there — Firebase config files stay out of git.
+
+```bash
+npm run android:dev       # ENVFILE=.env.development
+npm run android:staging   # ENVFILE=.env.staging
+npm run android:prod      # ENVFILE=.env.production
+# same for ios:dev / ios:staging / ios:prod
+```
+
+Android loads the matching file automatically (debug → development, release → production);
+`ENVFILE` overrides it. On iOS, add the `react-native-config` Run Script build phase once per
+`docs/FIREBASE_SECURITY.md` setup (tracked with the Firebase issues).
 
 ### Checks
 
