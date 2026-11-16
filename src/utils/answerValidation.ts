@@ -83,3 +83,20 @@ export function isAnswerCorrect(
 ): boolean {
   return matchAcceptedAnswer(input, acceptedAnswers, options) !== null;
 }
+
+/**
+ * Normalises an `Exercise.answer` field into accepted answer variants. The
+ * schema allows a single string or an array of variants (e.g. Tifinagh and
+ * Latin spellings); anything else yields no accepted answers.
+ */
+export function toAcceptedAnswers(answer: unknown): string[] {
+  const isNonEmptyString = (value: unknown): value is string =>
+    typeof value === 'string' && value.trim() !== '';
+  if (isNonEmptyString(answer)) {
+    return [answer];
+  }
+  if (Array.isArray(answer)) {
+    return answer.filter(isNonEmptyString);
+  }
+  return [];
+}
