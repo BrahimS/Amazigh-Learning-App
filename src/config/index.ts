@@ -25,4 +25,9 @@ export const config = {
     appIdIos: env.EXPO_PUBLIC_FIREBASE_APP_ID_IOS ?? '',
     messagingSenderId: env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? '',
   },
+  /** Local Firebase emulator endpoints (development only, host:port). */
+  emulators: {
+    firestoreHost: env.EXPO_PUBLIC_FIRESTORE_EMULATOR_HOST ?? '',
+    authHost: env.EXPO_PUBLIC_AUTH_EMULATOR_HOST ?? '',
+  },
 } as const;
