@@ -1,12 +1,21 @@
 import React from 'react';
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 
 import { AmazighText } from '@/components/AmazighText';
 import { Card } from '@/components/Card';
+import { Header } from '@/components/Header';
+import { Screen } from '@/components/Screen';
 import { usePreferencesStore } from '@/store/preferencesStore';
 import { useTheme } from '@/theme';
-import type { DialectId, LearningGoal, UiLanguage } from '@/types';
+import type {
+  DialectId,
+  LearningGoal,
+  ProfileStackParamList,
+  UiLanguage,
+} from '@/types';
 import { USER_DIALECTS } from '@/types';
 
 const GOALS: LearningGoal[] = ['travel', 'family', 'school', 'culture', 'work'];
@@ -28,6 +37,7 @@ function OptionRow({
       accessibilityRole="button"
       accessibilityState={{ selected }}
       onPress={onPress}
+      style={styles.optionPressable}
     >
       <Card
         style={[
@@ -35,7 +45,12 @@ function OptionRow({
           selected && { borderColor: theme.colors.primary, borderWidth: 2 },
         ]}
       >
-        <AmazighText style={{ fontFamily: theme.fonts.latin.semiBold }}>
+        <AmazighText
+          style={{
+            color: selected ? theme.colors.primary : theme.colors.textPrimary,
+            fontFamily: theme.fonts.latin.semiBold,
+          }}
+        >
           {label}
         </AmazighText>
       </Card>
@@ -53,11 +68,17 @@ function Section({
   const theme = useTheme();
   return (
     <View style={styles.section}>
-      <AmazighText
-        style={[styles.sectionTitle, { color: theme.colors.textSecondary }]}
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: theme.colors.textSecondary,
+            fontFamily: theme.fonts.latin.semiBold,
+          },
+        ]}
       >
         {title.toUpperCase()}
-      </AmazighText>
+      </Text>
       {children}
     </View>
   );
@@ -66,6 +87,8 @@ function Section({
 export function SettingsScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
 
   const uiLanguage = usePreferencesStore(state => state.uiLanguage);
   const dialect = usePreferencesStore(state => state.dialect);
@@ -79,15 +102,8 @@ export function SettingsScreen() {
   );
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.container,
-        { backgroundColor: theme.colors.background },
-      ]}
-    >
-      <AmazighText variant="heading" style={styles.title}>
-        {t('settings.title')}
-      </AmazighText>
+    <Screen scroll contentContainerStyle={styles.container}>
+      <Header title={t('settings.title')} onBack={() => navigation.goBack()} />
 
       <Section title={t('settings.language')}>
         <View style={styles.options}>
@@ -126,11 +142,9 @@ export function SettingsScreen() {
             />
           ))}
         </View>
-        <AmazighText
-          style={[styles.subLabel, { color: theme.colors.textSecondary }]}
-        >
+        <Text style={[styles.subLabel, { color: theme.colors.textSecondary }]}>
           {t('settings.dailyGoal')}
-        </AmazighText>
+        </Text>
         <View style={styles.options}>
           {DAILY_OPTIONS.map(option => (
             <OptionRow
@@ -142,35 +156,31 @@ export function SettingsScreen() {
           ))}
         </View>
       </Section>
-    </ScrollView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    padding: 24,
-    paddingTop: 48,
-  },
-  title: {
-    marginBottom: 24,
+    gap: 20,
+    paddingBottom: 32,
   },
   section: {
-    marginBottom: 28,
+    gap: 10,
   },
   sectionTitle: {
     fontSize: 12,
-    fontFamily: 'Poppins-SemiBold',
     letterSpacing: 1,
-    marginBottom: 10,
   },
   subLabel: {
     fontSize: 14,
-    marginTop: 12,
-    marginBottom: 8,
+    marginTop: 8,
   },
   options: {
     gap: 10,
+  },
+  optionPressable: {
+    minHeight: 44,
   },
   option: {
     paddingVertical: 14,

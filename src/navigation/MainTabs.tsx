@@ -3,21 +3,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTranslation } from 'react-i18next';
 
-import {
-  CultureHomeScreen,
-  ArticleScreen,
-} from '@/screens/culture/CultureScreens';
+import { ArticleScreen } from '@/screens/culture/ArticleScreen';
+import { CultureHomeScreen } from '@/screens/culture/CultureHomeScreen';
 import { CourseDetailsScreen } from '@/screens/learn/CourseDetailsScreen';
 import { DashboardScreen } from '@/screens/learn/DashboardScreen';
 import { ExerciseScreen } from '@/screens/learn/ExerciseScreen';
 import { LessonCompleteScreen } from '@/screens/learn/LessonCompleteScreen';
 import { LessonScreen } from '@/screens/learn/LessonScreen';
 import { ModuleScreen } from '@/screens/learn/ModuleScreen';
-import {
-  ProfileScreen,
-  AchievementsScreen,
-  StatisticsScreen,
-} from '@/screens/profile/ProfileScreens';
+import { AchievementsScreen } from '@/screens/profile/AchievementsScreen';
+import { ProfileScreen } from '@/screens/profile/ProfileScreen';
+import { StatisticsScreen } from '@/screens/profile/StatisticsScreen';
 import { SettingsScreen } from '@/screens/profile/SettingsScreen';
 import { FlashcardsScreen } from '@/screens/vocabulary/FlashcardsScreen';
 import { LibraryScreen } from '@/screens/vocabulary/LibraryScreen';
