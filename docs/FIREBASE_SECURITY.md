@@ -30,9 +30,17 @@ If a secret is committed by mistake: rotate it immediately, then purge it from h
 
 Roles are stored as **custom claims** (`request.auth.token.role`). Only admins can set them, using the Admin SDK. `users/{uid}.role` is a read-only mirror for display purposes.
 
-## Firestore rules
 
-Implemented in `firebase/firestore.rules` and verified against the Emulator Suite (`npm run test:emulator`, 15 tests):
+```ts
+// Admin SDK (server-side only, never shipped in the app)
+import { getAuth } from 'firebase-admin/auth';
+
+export async function setUserRole(uid: string, role: 'learner' | 'contributor' | 'admin') {
+  await getAuth().setCustomUserClaims(uid, { role });
+  await getAuth().revokeRefreshTokens(uid); // force clients to pick up the new claim
+}
+```
+
 
 ```
 rules_version = '2';
