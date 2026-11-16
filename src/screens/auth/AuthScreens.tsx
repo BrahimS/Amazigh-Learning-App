@@ -1,9 +1,15 @@
 import React from 'react';
+import { signInAnonymously } from 'firebase/auth';
 
+import { Button } from '@/components/Button';
 import { PlaceholderScreen } from '@/components/PlaceholderScreen';
 import { WelcomeCard } from '@/components/WelcomeCard';
+import { getFirebaseAuth } from '@/services/firebase/client';
+import { shouldUseEmulators } from '@/services/firebase/emulators';
+import { usePreferencesStore } from '@/store/preferencesStore';
+import { useSessionStore } from '@/store/sessionStore';
 import { useTheme } from '@/theme';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export function SplashScreen({
   navigation,
@@ -30,8 +36,68 @@ export function SplashScreen({
 }
 
 export function WelcomeScreen() {
+  const theme = useTheme();
+  const setUser = useSessionStore(state => state.setUser);
+  const completeOnboarding = usePreferencesStore(
+    state => state.completeOnboarding,
+  );
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
+
+  // Dev-only guest entry while Firebase Auth is not implemented (issues
+  // #45/#46): signs in anonymously against the local Auth emulator and enters
+  // the app with a local profile. Never shown outside development builds.
+  const devGuestEnabled =
+    typeof __DEV__ !== 'undefined' && __DEV__ && shouldUseEmulators();
+
+  const enterAsGuest = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await signInAnonymously(getFirebaseAuth());
+      const nowSeconds = Math.floor(Date.now() / 1000);
+      setUser({
+        uid: 'dev-guest',
+        displayName: 'Guest',
+        email: 'guest@localhost',
+        role: 'learner',
+        dialect: 'tachelhit',
+        uiLanguage: 'en',
+        dailyGoalMinutes: 10,
+        xp: 0,
+        currentStreak: 0,
+        longestStreak: 0,
+        createdAt: { seconds: nowSeconds, nanoseconds: 0 },
+        updatedAt: { seconds: nowSeconds, nanoseconds: 0 },
+      });
+      completeOnboarding();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sign-in failed');
+      setLoading(false);
+    }
+  };
+
   return (
-    <PlaceholderScreen title="Welcome" subtitle="Learn Moroccan Amazigh" />
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
+      <PlaceholderScreen title="Welcome" subtitle="Learn Moroccan Amazigh" />
+      {devGuestEnabled ? (
+        <View style={styles.devActions}>
+          {error ? (
+            <Text style={[styles.devError, { color: theme.colors.danger }]}>
+              {error}
+            </Text>
+          ) : null}
+          <Button
+            title="Continue as guest (dev)"
+            variant="outline"
+            loading={loading}
+            onPress={enterAsGuest}
+          />
+        </View>
+      ) : null}
+    </View>
   );
 }
 
@@ -52,5 +118,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+  },
+  devActions: {
+    alignItems: 'center',
+    gap: 8,
+    paddingBottom: 32,
+    width: '100%',
+  },
+  devError: {
+    fontSize: 13,
+    textAlign: 'center',
   },
 });

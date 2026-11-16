@@ -12,7 +12,8 @@ export type AppEnvironment = 'development' | 'staging' | 'production';
 const env = process.env;
 
 export const environment: AppEnvironment =
-  env.EXPO_PUBLIC_APP_ENV === 'staging' || env.EXPO_PUBLIC_APP_ENV === 'production'
+  env.EXPO_PUBLIC_APP_ENV === 'staging' ||
+  env.EXPO_PUBLIC_APP_ENV === 'production'
     ? env.EXPO_PUBLIC_APP_ENV
     : 'development';
 
@@ -24,5 +25,16 @@ export const config = {
     appIdAndroid: env.EXPO_PUBLIC_FIREBASE_APP_ID_ANDROID ?? '',
     appIdIos: env.EXPO_PUBLIC_FIREBASE_APP_ID_IOS ?? '',
     messagingSenderId: env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? '',
+  },
+  /**
+   * Local Firebase emulators. In development the app uses them by default
+   * (set EXPO_PUBLIC_USE_EMULATORS=false to opt out); staging/production
+   * always use real Firebase. The hosts default per platform (see
+   * src/services/firebase/emulators.ts) — set them only to override.
+   */
+  emulators: {
+    firestoreHost: env.EXPO_PUBLIC_FIRESTORE_EMULATOR_HOST ?? '',
+    authHost: env.EXPO_PUBLIC_AUTH_EMULATOR_HOST ?? '',
+    useEmulators: env.EXPO_PUBLIC_USE_EMULATORS !== 'false',
   },
 } as const;
