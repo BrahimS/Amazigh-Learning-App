@@ -1,0 +1,142 @@
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import {
+  CultureHomeScreen,
+  ArticleScreen,
+} from '@/screens/culture/CultureScreens';
+import {
+  DashboardScreen,
+  CourseDetailsScreen,
+  ExerciseScreen,
+  LessonCompleteScreen,
+  LessonScreen,
+  ModuleScreen,
+} from '@/screens/learn/LearnScreens';
+import {
+  ProfileScreen,
+  SettingsScreen,
+  AchievementsScreen,
+  StatisticsScreen,
+} from '@/screens/profile/ProfileScreens';
+import {
+  FlashcardsScreen,
+  LibraryScreen,
+  WordDetailsScreen,
+} from '@/screens/vocabulary/VocabularyScreens';
+import {
+  AlphabetScreen,
+  LetterDetailsScreen,
+  LetterQuizScreen,
+} from '@/screens/tifinagh/TifinaghScreens';
+import type {
+  CultureStackParamList,
+  LearnStackParamList,
+  MainTabParamList,
+  ProfileStackParamList,
+  TifinaghStackParamList,
+  VocabularyStackParamList,
+} from '@/types';
+
+const LearnStack = createNativeStackNavigator<LearnStackParamList>();
+const VocabularyStack = createNativeStackNavigator<VocabularyStackParamList>();
+const TifinaghStack = createNativeStackNavigator<TifinaghStackParamList>();
+const CultureStack = createNativeStackNavigator<CultureStackParamList>();
+const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
+
+function LearnStackNavigator() {
+  return (
+    <LearnStack.Navigator screenOptions={{ headerShown: false }}>
+      <LearnStack.Screen name="Dashboard" component={DashboardScreen} />
+      <LearnStack.Screen name="CourseDetails" component={CourseDetailsScreen} />
+      <LearnStack.Screen name="Module" component={ModuleScreen} />
+      <LearnStack.Screen name="Lesson" component={LessonScreen} />
+      <LearnStack.Screen name="Exercise" component={ExerciseScreen} />
+      <LearnStack.Screen
+        name="LessonComplete"
+        component={LessonCompleteScreen}
+      />
+    </LearnStack.Navigator>
+  );
+}
+
+function VocabularyStackNavigator() {
+  return (
+    <VocabularyStack.Navigator screenOptions={{ headerShown: false }}>
+      <VocabularyStack.Screen name="Library" component={LibraryScreen} />
+      <VocabularyStack.Screen
+        name="WordDetails"
+        component={WordDetailsScreen}
+      />
+      <VocabularyStack.Screen name="Flashcards" component={FlashcardsScreen} />
+    </VocabularyStack.Navigator>
+  );
+}
+
+function TifinaghStackNavigator() {
+  return (
+    <TifinaghStack.Navigator screenOptions={{ headerShown: false }}>
+      <TifinaghStack.Screen name="Alphabet" component={AlphabetScreen} />
+      <TifinaghStack.Screen
+        name="LetterDetails"
+        component={LetterDetailsScreen}
+      />
+      <TifinaghStack.Screen name="LetterQuiz" component={LetterQuizScreen} />
+    </TifinaghStack.Navigator>
+  );
+}
+
+function CultureStackNavigator() {
+  return (
+    <CultureStack.Navigator screenOptions={{ headerShown: false }}>
+      <CultureStack.Screen name="CultureHome" component={CultureHomeScreen} />
+      <CultureStack.Screen name="Article" component={ArticleScreen} />
+    </CultureStack.Navigator>
+  );
+}
+
+function ProfileStackNavigator() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="Settings" component={SettingsScreen} />
+      <ProfileStack.Screen name="Achievements" component={AchievementsScreen} />
+      <ProfileStack.Screen name="Statistics" component={StatisticsScreen} />
+    </ProfileStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator<MainTabParamList>();
+
+export function MainTabs() {
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen
+        name="Learn"
+        component={LearnStackNavigator}
+        options={{ title: 'Learn' }}
+      />
+      <Tab.Screen
+        name="Vocabulary"
+        component={VocabularyStackNavigator}
+        options={{ title: 'Vocabulary' }}
+      />
+      <Tab.Screen
+        name="Tifinagh"
+        component={TifinaghStackNavigator}
+        options={{ title: 'Tifinagh' }}
+      />
+      <Tab.Screen
+        name="Culture"
+        component={CultureStackNavigator}
+        options={{ title: 'Culture' }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileStackNavigator}
+        options={{ title: 'Profile' }}
+      />
+    </Tab.Navigator>
+  );
+}

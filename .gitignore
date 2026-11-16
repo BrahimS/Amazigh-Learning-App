@@ -78,6 +78,10 @@ yarn-error.log
 .env
 .env.*
 !.env.example
+# Per-environment configs contain only non-secret values (see docs/FIREBASE_SECURITY.md)
+!.env.development
+!.env.staging
+!.env.production
 
 # Credentials and signing material
 *.key
