@@ -103,10 +103,9 @@ npm run android:prod      # EXPO_PUBLIC_APP_ENV=production
 # same for ios:dev / ios:staging / ios:prod
 ```
 
-Expo loads `.env.development` automatically for dev builds and `.env.production` for
-release builds; the `*:staging` scripts set `EXPO_PUBLIC_APP_ENV=staging` (pair it with
-`.env.staging` via your shell or EAS environment variables). See
-`docs/FIREBASE_SECURITY.md` for Firebase project setup.
+The `*:dev` / `*:staging` / `*:prod` scripts source the matching `.env.*` file before
+building, so every `EXPO_PUBLIC_*` value is picked up. See `docs/FIREBASE_SECURITY.md`
+for Firebase project setup.
 
 ### Checks
 
