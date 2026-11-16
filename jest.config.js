@@ -1,12 +1,12 @@
 module.exports = {
-  preset: '@react-native/jest-preset',
+  preset: 'jest-expo',
   setupFiles: ['<rootDir>/jest.setup.js'],
   // Emulator tests run separately via `npm run test:emulator` (they need the
   // Firestore emulator); keep them out of the default unit test run.
   testPathIgnorePatterns: ['/node_modules/', '__tests__/emulator/'],
-  // React Navigation, safe-area and the Firebase JS SDK ship ESM that Jest must transform
+  // jest-expo's pattern plus the Firebase JS SDK, which ships ESM.
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?@?react-native|@react-native(-community)?|@react-navigation|react-native-screens|react-native-safe-area-context|firebase|@firebase)/)',
+    '/node_modules/(?!(.pnpm|react-native|@react-native|@react-native-community|expo|@expo|@expo-google-fonts|react-navigation|@react-navigation|@sentry/react-native|native-base|standard-navigation|firebase|@firebase))',
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',

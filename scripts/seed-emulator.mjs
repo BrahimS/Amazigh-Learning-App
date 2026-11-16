@@ -13,6 +13,8 @@ import { fileURLToPath } from 'node:url';
 
 import { initializeTestEnvironment } from '@firebase/rules-unit-testing';
 
+import { DIALECTS, loadDialect } from './lib/vocabulary.mjs';
+
 const projectId = process.env.GCLOUD_PROJECT ?? 'demo-amazigh-learning';
 const rulesPath = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -113,8 +115,8 @@ await testEnv.withSecurityRulesDisabled(async context => {
           type: 'content',
           title: { fr: 'Dire son nom', en: 'Saying your name' },
           body: {
-            fr: 'Structure de base : « ⵉⵣⵎ / isem » pour « nom ».',
-            en: 'Basic structure: “ⵉⵣⵎ / isem” for “name”.',
+            fr: 'Structure de base : « ⵉⵙⴻⵎ / isem » pour « nom ».',
+            en: 'Basic structure: “ⵉⵙⴻⵎ / isem” for “name”.',
           },
         },
         { type: 'exercise', exerciseId: 'ex-intro-1' },
@@ -152,7 +154,7 @@ await testEnv.withSecurityRulesDisabled(async context => {
     .set({
       type: 'mcq',
       prompt: {
-        tifinagh: 'ⵄⵣⵓⵍ',
+        tifinagh: 'ⴰⵣⵓⵍ',
         latin: 'azul',
         fr: '« ___ » signifie bonjour',
         en: '“___” means hello',
@@ -191,37 +193,32 @@ await testEnv.withSecurityRulesDisabled(async context => {
       dialect: 'tachelhit',
     });
 
-  await db
-    .collection('vocabulary')
-    .doc('word-azul')
-    .set({
-      text: { tifinagh: 'ⴰⵣⵓⵍ', latin: 'azul' },
-      translations: { fr: 'Bonjour', en: 'Hello' },
-      dialect: 'tachelhit',
-      partOfSpeech: 'interjection',
-      category: 'greetings',
-      examples: [
-        {
-          text: { tifinagh: 'ⴰⵣⵓⵍ ⵏⵉⵖ', latin: 'azul nigh' },
-          translations: { fr: 'Bonjour (informel)', en: 'Hello (informal)' },
-        },
-      ],
-      audioPath: 'audio/words/tachelhit/word-azul.m4a',
-      validated: true,
-      validatedBy: 'seed',
-    });
+  // Vocabulary starter lists from content/vocabulary/*.csv (all unvalidated, #85).
+  let wordCount = 0;
+  for (const dialect of DIALECTS) {
+    const { entries, errors } = loadDialect(dialect);
+    if (errors.length) {
+      throw new Error(`Invalid ${dialect} vocabulary:\n${errors.join('\n')}`);
+    }
+    const batch = db.batch();
+    for (const { id, ...word } of entries) {
+      batch.set(db.collection('vocabulary').doc(id), word);
+    }
+    await batch.commit();
+    wordCount += entries.length;
+  }
 
   await db
     .collection('tifinaghLetters')
     .doc('ya')
     .set({
-      glyph: 'ⵢ',
-      unicode: 'U+2D62',
+      glyph: 'ⴰ',
+      unicode: 'U+2D30',
       name: 'ya',
-      latin: 'y',
-      ipa: '/j/',
-      order: 2,
-      examples: ['word-azul'],
+      latin: 'a',
+      ipa: '/a/',
+      order: 1,
+      examples: ['tachelhit-azul-intj'],
     });
 
   await db
@@ -238,7 +235,7 @@ await testEnv.withSecurityRulesDisabled(async context => {
     });
 
   console.log(
-    'Seeded: 1 course (2 modules, 3 lessons), 3 exercises, 1 word, 1 letter, 1 achievement',
+    `Seeded: 1 course (2 modules, 3 lessons), 3 exercises, ${wordCount} words (unvalidated), 1 letter, 1 achievement`,
   );
 });
 

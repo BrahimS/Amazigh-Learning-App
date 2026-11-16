@@ -1,4 +1,35 @@
 {
-  "name": "AmazighLearningApp",
-  "displayName": "Amazigh Learning"
+  "expo": {
+    "name": "Amazigh Learning",
+    "slug": "amazigh-learning",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "scheme": "amazighlearning",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FFFFFF",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.amazighlearning.app"
+    },
+    "android": {
+      "package": "com.amazighlearning.app",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Poppins-Regular.ttf",
+            "./src/assets/fonts/Poppins-Medium.ttf",
+            "./src/assets/fonts/Poppins-SemiBold.ttf",
+            "./src/assets/fonts/Poppins-Bold.ttf",
+            "./src/assets/fonts/NotoSansTifinagh-Regular.ttf"
+          ]
+        }
+      ],
+      "expo-splash-screen",
+      "expo-status-bar"
+    ]
+  }
 }

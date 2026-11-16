@@ -19,6 +19,8 @@ export interface ListVocabularyOptions {
   dialect?: DialectId;
   category?: string;
   maxResults?: number;
+  /** Include words not yet reviewed by native speakers (dev builds only). */
+  includeUnvalidated?: boolean;
 }
 
 export async function listVocabulary(
@@ -26,7 +28,9 @@ export async function listVocabulary(
   db: Firestore = getFirestoreDb(),
 ): Promise<ServiceResult<VocabularyItem[]>> {
   try {
-    const constraints: QueryConstraint[] = [where('validated', '==', true)];
+    const constraints: QueryConstraint[] = options.includeUnvalidated
+      ? []
+      : [where('validated', '==', true)];
     if (options.dialect) {
       constraints.push(where('dialect', '==', options.dialect));
     }

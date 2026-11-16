@@ -137,7 +137,7 @@ export type RootStackParamList = {
 | `staging` | `amazigh-learning-staging` | Internal testing builds |
 | `prod` | `amazigh-learning-prod` | Store releases |
 
-Configuration is selected at build time (`react-native-config` / build flavors). Firebase config files are **not committed**; see `FIREBASE_SECURITY.md`.
+Configuration is selected at build time via `EXPO_PUBLIC_*` environment variables (Expo, per-environment `.env` files; see README). Firebase config files are **not committed**; see `FIREBASE_SECURITY.md`.
 
 ## 6. Error handling and logging
 

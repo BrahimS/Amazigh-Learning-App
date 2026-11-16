@@ -18,7 +18,7 @@ A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazi
 
 | Layer | Technology |
 |-------|-----------|
-| Mobile | React Native + TypeScript |
+| Mobile | React Native + TypeScript (Expo SDK 58, managed workflow) |
 | Navigation | React Navigation |
 | State | Zustand (Redux Toolkit is the documented alternative; see `docs/TECHNICAL_ARCHITECTURE.md`) |
 | Auth | Firebase Authentication |
@@ -65,41 +65,90 @@ A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazi
 
 ### Prerequisites
 
-- Node.js 22.11+ and npm
-- For Android: Android Studio (SDK 35+, platform-tools) and a JDK 17+
-- For iOS (macOS only): Xcode 16+ and CocoaPods
+- Node.js 22.13+ and npm
+- Java 11+ (the Firebase emulators run on the JVM)
+- For Android: Android Studio (SDK 35+, platform-tools) and `ANDROID_HOME` set
+- For iOS: a Mac with Xcode 16+ (or EAS Build for cloud builds)
+
+`npm run dev:*` checks these prerequisites up front and fails with an
+actionable message instead of an obscure toolchain error.
 
 ### Setup
 
 ```bash
 npm install
-# iOS only (macOS):
-cd ios && pod install && cd ..
 ```
+
+This is an [Expo](https://expo.dev) managed-workflow app: the `android/` and `ios/`
+native projects are generated on demand by `expo prebuild` (run automatically by
+`expo run:android` / `expo run:ios`). Never commit them.
 
 ### Run
 
+**Recommended — one command:**
+
 ```bash
-npm start          # Metro bundler
-npm run android    # Android emulator or device
-npm run ios        # iOS simulator (macOS)
+npm run dev:android   # Android emulator/device
+npm run dev:ios       # iOS simulator (macOS only)
+```
+
+`dev:*` starts the Firebase emulators (Firestore + Auth) if they are not already
+running, seeds the sample curriculum, then builds the dev client, installs it and
+starts Metro. Already-running emulators are reused and left alone; emulators
+started by the script stop when you quit (Ctrl+C). Restarting the emulators wipes
+their data — the app detects the stale guest session and returns you to the
+Welcome screen automatically, so just tap "Continue as guest (dev)" again.
+
+**Manual:**
+
+```bash
+npm start          # Expo dev server (use with a dev build, see below)
+npm run android    # build + install the Android dev client on a connected device/emulator
+npm run ios        # same for iOS (macOS only)
+npm run start:go   # Expo Go (limited: no custom native config yet)
+```
+
+For hot-reload development, run `npm start` after `expo run:android` has installed the dev client.
+If port 8081 is busy, Expo offers another port — if the app cannot connect, open
+the dev menu and enter the URL Metro shows.
+
+### Firebase emulators in development
+
+Development builds talk to the local Firebase emulators **by default** — no
+configuration needed. The app picks the right address per platform:
+
+- Android emulator → `10.0.2.2` (the host machine)
+- iOS simulator / web → `localhost`
+
+To override (e.g. a **physical device**, which needs your machine's LAN IP), set
+`EXPO_PUBLIC_FIRESTORE_EMULATOR_HOST` / `EXPO_PUBLIC_AUTH_EMULATOR_HOST` in
+`.env.development` (or `.env.development.local`). To bypass the emulators in a
+development build, set `EXPO_PUBLIC_USE_EMULATORS=false`. Staging and production
+builds always use real Firebase.
+
+Standalone emulator helpers (the `dev:*` scripts wrap these):
+
+```bash
+npm run test:emulator   # Firestore rules tests against the emulators
+npm run seed:emulator   # (re)seed sample curriculum data
 ```
 
 ### Environments
 
-Build-time environment config lives in `.env.development` / `.env.staging` / `.env.production`
-(see `.env.example`). Only **non-secret** values belong there — Firebase config files stay out of git.
+Expo inlines `EXPO_PUBLIC_*` variables into the JS bundle at build time, loaded from
+`.env.development` / `.env.staging` / `.env.production` (see `.env.example`). Only
+**non-secret** values belong there — Firebase config files stay out of git.
 
 ```bash
-npm run android:dev       # ENVFILE=.env.development
-npm run android:staging   # ENVFILE=.env.staging
-npm run android:prod      # ENVFILE=.env.production
+npm run android:dev       # EXPO_PUBLIC_APP_ENV=development
+npm run android:staging   # EXPO_PUBLIC_APP_ENV=staging
+npm run android:prod      # EXPO_PUBLIC_APP_ENV=production
 # same for ios:dev / ios:staging / ios:prod
 ```
 
-Android loads the matching file automatically (debug → development, release → production);
-`ENVFILE` overrides it. On iOS, add the `react-native-config` Run Script build phase once per
-`docs/FIREBASE_SECURITY.md` setup (tracked with the Firebase issues).
+The `*:dev` / `*:staging` / `*:prod` scripts source the matching `.env.*` file before
+building, so every `EXPO_PUBLIC_*` value is picked up. See `docs/FIREBASE_SECURITY.md`
+for Firebase project setup.
 
 ### Checks
 
