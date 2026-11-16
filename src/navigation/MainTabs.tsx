@@ -19,16 +19,12 @@ import {
   StatisticsScreen,
 } from '@/screens/profile/ProfileScreens';
 import { SettingsScreen } from '@/screens/profile/SettingsScreen';
-import {
-  FlashcardsScreen,
-  LibraryScreen,
-  WordDetailsScreen,
-} from '@/screens/vocabulary/VocabularyScreens';
-import {
-  AlphabetScreen,
-  LetterDetailsScreen,
-  LetterQuizScreen,
-} from '@/screens/tifinagh/TifinaghScreens';
+import { FlashcardsScreen } from '@/screens/vocabulary/FlashcardsScreen';
+import { LibraryScreen } from '@/screens/vocabulary/LibraryScreen';
+import { WordDetailsScreen } from '@/screens/vocabulary/WordDetailsScreen';
+import { AlphabetScreen } from '@/screens/tifinagh/AlphabetScreen';
+import { LetterDetailsScreen } from '@/screens/tifinagh/LetterDetailsScreen';
+import { LetterQuizScreen } from '@/screens/tifinagh/LetterQuizScreen';
 import type {
   CultureStackParamList,
   LearnStackParamList,
