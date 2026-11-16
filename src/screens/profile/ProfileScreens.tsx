@@ -6,10 +6,6 @@ export function ProfileScreen() {
   return <PlaceholderScreen title="Profile" />;
 }
 
-export function SettingsScreen() {
-  return <PlaceholderScreen title="Settings" />;
-}
-
 export function AchievementsScreen() {
   return <PlaceholderScreen title="Achievements" />;
 }

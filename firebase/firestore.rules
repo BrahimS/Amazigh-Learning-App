@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    function hasRole(r) {
+      return signedIn() && 'role' in request.auth.token && request.auth.token.role == r;
+    }
+    function isAdmin() { return hasRole('admin'); }
+    function isContributor() { return hasRole('contributor') || isAdmin(); }
+
+    // Users: private profile; role and XP are server-managed (custom claims / future Functions).
+    // NOTE: sub-collections are listed explicitly — a recursive wildcard here would also
+    // match the parent users/{uid} document and bypass the role/xp protections below.
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) && !('role' in request.resource.data);
+      allow update: if isOwner(uid)
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'xp']);
+      allow delete: if isAdmin();
+
+      match /progress/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /lessonResults/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /achievements/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /vocabulary/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+    }
+
+    // Published curriculum — readable by any signed-in learner, written by admins
+    match /courses/{courseId}/{path=**} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // Vocabulary: contributors create drafts, only admins publish/edit/delete
+    match /vocabulary/{id} {
+      allow read: if signedIn();
+      allow create: if isContributor();
+      allow update, delete: if isAdmin();
+    }
+
+    // Reference content: exercises, letters, achievements, culture articles
+    match /{collection}/{docId} {
+      allow read: if signedIn()
+        && collection in ['exercises', 'tifinaghLetters', 'achievements', 'culture'];
+      allow write: if isAdmin();
+    }
+  }
+}

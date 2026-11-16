@@ -12,6 +12,7 @@ export type AppEnvironment = 'development' | 'staging' | 'production';
 interface EnvValues {
   APP_ENV?: string;
   FIREBASE_PROJECT_ID?: string;
+  FIREBASE_API_KEY?: string;
   FIREBASE_APP_ID_ANDROID?: string;
   FIREBASE_APP_ID_IOS?: string;
   FIREBASE_MESSAGING_SENDER_ID?: string;
@@ -39,6 +40,7 @@ export const config = {
   environment,
   firebase: {
     projectId: env.FIREBASE_PROJECT_ID ?? '',
+    apiKey: env.FIREBASE_API_KEY ?? '',
     appIdAndroid: env.FIREBASE_APP_ID_ANDROID ?? '',
     appIdIos: env.FIREBASE_APP_ID_IOS ?? '',
     messagingSenderId: env.FIREBASE_MESSAGING_SENDER_ID ?? '',
