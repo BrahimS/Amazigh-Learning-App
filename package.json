@@ -18,6 +18,8 @@
     "seed:emulator": "firebase emulators:exec --only firestore,auth --project demo-amazigh-learning 'node scripts/seed-emulator.mjs'",
     "typecheck": "tsc --noEmit",
     "typecheck:emulator": "tsc --noEmit -p tsconfig.emulator.json",
+    "validate:vocabulary": "node scripts/validate-vocabulary.mjs",
+    "test:scripts": "node --test scripts/lib/vocabulary.test.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json}\""
   },

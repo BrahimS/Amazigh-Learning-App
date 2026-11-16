@@ -1,0 +1,72 @@
+# UNVALIDATED STARTER LIST — Tachelhit (Souss). Must be reviewed by native speakers (#85).
+# Tifinagh is generated from the Latin column (IRCAM mapping); do not add a tifinagh column.
+latin,fr,en,partOfSpeech,category,exampleLatin,exampleFr,exampleEn
+azul,bonjour,hello,intj,greetings,azul fllawn,bonjour à vous,hello to you
+tanmirt,merci,thank you,n,greetings
+mrḥba,bienvenue,welcome,intj,greetings
+ih,oui,yes,intj,greetings
+uhu,non,no,intj,greetings
+yan,un,one,num,numbers
+sin,deux,two,num,numbers
+kraḍ,trois,three,num,numbers
+kkuẓ,quatre,four,num,numbers
+smmus,cinq,five,num,numbers
+sḍis,six,six,num,numbers
+sa,sept,seven,num,numbers
+tam,huit,eight,num,numbers
+tẓa,neuf,nine,num,numbers
+mraw,dix,ten,num,numbers
+baba,père,father,n,family
+yumma,mère,mother,n,family
+argaz,homme,man,n,family
+tamɣart,femme,woman,n,family
+arraw,enfants,children,n,family
+gʷma,mon frère,my brother,n,family
+ultma,ma sœur,my sister,n,family
+aman,eau,water,n,food
+aɣrum,pain,bread,n,food
+atay,thé,tea,n,food
+tamment,miel,honey,n,food
+aksum,viande,meat,n,food
+tisnt,sel,salt,n,food
+aydi,chien,dog,n,animals
+amcic,chat,cat,n,animals
+aɣyul,âne,donkey,n,animals
+ayyis,cheval,horse,n,animals
+tafunast,vache,cow,n,animals
+taɣaṭṭ,chèvre,goat,n,animals
+afullus,coq,rooster,n,animals
+ixf,tête,head,n,body
+afus,main,hand,n,body
+aḍar,pied,foot,n,body
+tiṭṭ,œil,eye,n,body
+imi,bouche,mouth,n,body
+amzzuɣ,oreille,ear,n,body
+ils,langue,tongue,n,body
+adrar,montagne,mountain,n,nature
+asif,rivière,river,n,nature
+ayyur,lune / mois,moon / month,n,nature
+tafukt,soleil,sun,n,nature
+itri,étoile,star,n,nature
+anzar,pluie,rain,n,nature
+aḍu,vent,wind,n,nature
+ass,jour,day,n,time
+iḍ,nuit,night,n,time
+aseggʷas,année,year,n,time
+ɣassa,aujourd’hui,today,adv,time
+azkka,demain,tomorrow,adv,time
+tigmmi,maison,house,n,house
+tawwurt,porte,door,n,house
+amllal,blanc,white,adj,colors
+abrkan,noir,black,adj,colors
+azggʷaɣ,rouge,red,adj,colors
+amqqran,grand,big,adj,adjectives
+amẓẓyan,petit,small,adj,adjectives
+ddu,aller,to go,v,verbs
+cc,manger,to eat,v,verbs
+su,boire,to drink,v,verbs
+ini,dire,to say,v,verbs
+ssn,savoir,to know,v,verbs
+tamazirt,pays / terroir,country / homeland,n,places
+tamdint,ville,city,n,places
+aɣaras,chemin,road / path,n,places
