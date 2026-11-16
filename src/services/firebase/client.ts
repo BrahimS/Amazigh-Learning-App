@@ -1,5 +1,13 @@
 import { getApps, initializeApp, type FirebaseApp } from 'firebase/app';
-import { connectAuthEmulator, getAuth, type Auth } from 'firebase/auth';
+import {
+  connectAuthEmulator,
+  initializeAuth,
+  // @ts-expect-error -- exported by the React Native build of firebase/auth;
+  // the web typings shipped to TypeScript omit it.
+  getReactNativePersistence,
+  type Auth,
+} from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   connectFirestoreEmulator,
   getFirestore,
@@ -14,6 +22,12 @@ let cachedAuth: Auth | null = null;
 
 /** Reserved project id accepted by the Firebase emulators. */
 const DEMO_PROJECT_ID = 'demo-amazigh-learning';
+
+/**
+ * The emulators accept any non-empty API key but reject requests without one,
+ * so development gets a placeholder until the real key exists (issue #44).
+ */
+const DEMO_API_KEY = 'demo-api-key';
 
 function shouldUseEmulators(): boolean {
   return (
@@ -54,7 +68,7 @@ export function getFirebaseApp(): FirebaseApp {
   }
   return initializeApp({
     projectId: effectiveProjectId,
-    apiKey: apiKey || undefined,
+    apiKey: apiKey || (shouldUseEmulators() ? DEMO_API_KEY : undefined),
   });
 }
 
@@ -75,7 +89,12 @@ export function getFirestoreDb(): Firestore {
 
 export function getFirebaseAuth(): Auth {
   if (!cachedAuth) {
-    const auth = getAuth(getFirebaseApp());
+    // initializeAuth (not getAuth) is required on React Native: the auth
+    // instance must exist before connectAuthEmulator runs, and the RN build
+    // needs an explicit persistence or it warns and keeps memory-only state.
+    const auth = initializeAuth(getFirebaseApp(), {
+      persistence: getReactNativePersistence(AsyncStorage),
+    });
     if (shouldUseEmulators() && config.emulators.authHost !== '') {
       const { hostname, port } = emulatorEndpoint(
         config.emulators.authHost,
