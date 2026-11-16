@@ -84,6 +84,27 @@ The MVP supports dialect selection between **Tachelhit (Tashelhiyt)**, **Central
 - D7 retention ≥ 20%
 - Crash-free sessions ≥ 99%
 
+## 8a. Requirement traceability
+
+Every in-scope feature maps to at least one backlog issue. Post-MVP features are labelled `type:feature`, priority `low`, have no sprint, and stay in the board **Backlog** column.
+
+| Requirement | Backlog issues |
+|-------------|----------------|
+| FR-01 Register with email/password | #54 |
+| FR-02 Login, logout, password reset | #55, #56, #57 |
+| FR-03 Dialect choice and change | #60 |
+| FR-04 Browse courses, modules, lessons | #62, #63, #64, #65, #66 |
+| FR-05 Ordered lesson steps | #65, #66, #67 |
+| FR-06 Exercise validation and feedback | #69, #70, #71, #75, #76 |
+| FR-07 Progress saved per lesson/course | #67, #97 |
+| FR-08 Vocabulary search (Tifinagh, Latin, FR, EN) | #78, #79 |
+| FR-09 Native-speaker audio for words | #86, #87, #88, #92 |
+| FR-10 Tifinagh letters and recognition | #82, #83 |
+| FR-11 XP, streaks, achievements | #93, #94, #95 |
+| FR-12 Cultural content (post-MVP) | #100, #101, #102, #103, #104, #105 |
+
+Post-MVP items without an epic (speech recognition, offline mode, web version, social features, payments) are tracked as low-priority backlog issues added in Sprint 1.
+
 ## 9. Assumptions and risks
 
 | Risk | Mitigation |
@@ -100,3 +121,6 @@ The MVP supports dialect selection between **Tachelhit (Tashelhiyt)**, **Central
 | 2026-11-15 | MIT license selected for source code |
 | 2026-11-15 | Zustand selected as the default state manager (Redux Toolkit is the alternative if complexity grows) |
 | 2026-11-15 | Two-week sprints; Sprint 1 starts 2026-11-16 |
+| 2026-11-15 | ADR-001 to ADR-004 accepted (see `TECHNICAL_ARCHITECTURE.md`) |
+| 2026-11-15 | Navigation route names and params typed in `src/types/navigation.ts` |
+| 2026-11-15 | Post-MVP items (speech recognition, offline mode, web, social, payments) added to the backlog as low-priority issues |

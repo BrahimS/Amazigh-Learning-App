@@ -63,7 +63,40 @@ A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazi
 
 ## Getting started
 
-The React Native project is initialised in Sprint 1 (see the "Initialize React Native TypeScript project" issue). Setup instructions will be added here at that point.
+### Prerequisites
+
+- Node.js 22.11+ and npm
+- For Android: Android Studio (SDK 35+, platform-tools) and a JDK 17+
+- For iOS (macOS only): Xcode 16+ and CocoaPods
+
+### Setup
+
+```bash
+npm install
+# iOS only (macOS):
+cd ios && pod install && cd ..
+```
+
+### Run
+
+```bash
+npm start          # Metro bundler
+npm run android    # Android emulator or device
+npm run ios        # iOS simulator (macOS)
+```
+
+### Checks
+
+```bash
+npm run typecheck  # TypeScript strict mode
+npm run lint       # ESLint
+npm test           # Jest
+npm run format     # Prettier
+```
+
+Aliases: import from `src/` as `@/…` (e.g. `@/components/WelcomeCard`), configured in `babel.config.js`, `tsconfig.json` and `jest.config.js`.
+
+Firebase configuration files (`google-services.json`, `GoogleService-Info.plist`) are **never committed**; see [Firebase Security](docs/FIREBASE_SECURITY.md).
 
 ## Contributing
 
