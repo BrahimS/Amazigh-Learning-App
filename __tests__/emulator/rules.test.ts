@@ -1,7 +1,11 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
-import { assertFails, assertSucceeds, initializeTestEnvironment } from '@firebase/rules-unit-testing';
+import {
+  assertFails,
+  assertSucceeds,
+  initializeTestEnvironment,
+} from '@firebase/rules-unit-testing';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import type { RulesTestEnvironment } from '@firebase/rules-unit-testing';
 
@@ -13,7 +17,10 @@ beforeAll(async () => {
   testEnv = await initializeTestEnvironment({
     projectId: PROJECT_ID,
     firestore: {
-      rules: readFileSync(path.resolve(__dirname, '../../firebase/firestore.rules'), 'utf8'),
+      rules: readFileSync(
+        path.resolve(__dirname, '../../firebase/firestore.rules'),
+        'utf8',
+      ),
     },
   });
 });
@@ -38,20 +45,28 @@ describe('users collection', () => {
 
   it('allows a user to read and update their own profile', async () => {
     const aliceDb = context('alice');
-    await testEnv.withSecurityRulesDisabled(async adminDb => {
-      await setDoc(doc(adminDb, 'users', 'alice'), { displayName: 'Alice', xp: 10 });
+    await testEnv.withSecurityRulesDisabled(async admin => {
+      const adminDb = admin.firestore();
+      await setDoc(doc(adminDb, 'users', 'alice'), {
+        displayName: 'Alice',
+        xp: 10,
+      });
     });
 
     await assertSucceeds(getDoc(doc(aliceDb, 'users', 'alice')));
     await assertSucceeds(
-      updateDoc(doc(aliceDb, 'users', 'alice'), { dialect: 'tachelhit', uiLanguage: 'fr' }),
+      updateDoc(doc(aliceDb, 'users', 'alice'), {
+        dialect: 'tachelhit',
+        uiLanguage: 'fr',
+      }),
     );
   });
 
-  it('denies reading another user\'s profile', async () => {
+  it("denies reading another user's profile", async () => {
     const aliceDb = context('alice');
     const bobDb = context('bob');
-    await testEnv.withSecurityRulesDisabled(async adminDb => {
+    await testEnv.withSecurityRulesDisabled(async admin => {
+      const adminDb = admin.firestore();
       await setDoc(doc(adminDb, 'users', 'alice'), { displayName: 'Alice' });
     });
 
@@ -61,28 +76,43 @@ describe('users collection', () => {
 
   it('denies changing role or xp directly', async () => {
     const aliceDb = context('alice');
-    await testEnv.withSecurityRulesDisabled(async adminDb => {
-      await setDoc(doc(adminDb, 'users', 'alice'), { displayName: 'Alice', role: 'learner', xp: 10 });
+    await testEnv.withSecurityRulesDisabled(async admin => {
+      const adminDb = admin.firestore();
+      await setDoc(doc(adminDb, 'users', 'alice'), {
+        displayName: 'Alice',
+        role: 'learner',
+        xp: 10,
+      });
     });
 
-    await assertFails(updateDoc(doc(aliceDb, 'users', 'alice'), { role: 'admin' }));
+    await assertFails(
+      updateDoc(doc(aliceDb, 'users', 'alice'), { role: 'admin' }),
+    );
     await assertFails(updateDoc(doc(aliceDb, 'users', 'alice'), { xp: 9999 }));
   });
 
   it('denies creating a profile with a role', async () => {
     const aliceDb = context('alice');
     await assertFails(
-      setDoc(doc(aliceDb, 'users', 'alice'), { displayName: 'Alice', role: 'admin' }),
+      setDoc(doc(aliceDb, 'users', 'alice'), {
+        displayName: 'Alice',
+        role: 'admin',
+      }),
     );
     await assertSucceeds(
-      setDoc(doc(aliceDb, 'users', 'alice'), { displayName: 'Alice', dialect: 'tamazight' }),
+      setDoc(doc(aliceDb, 'users', 'alice'), {
+        displayName: 'Alice',
+        dialect: 'tamazight',
+      }),
     );
   });
 
   it('allows admins to read any profile', async () => {
     const adminDb = context('admin1', { role: 'admin' });
-    await testEnv.withSecurityRulesDisabled(async adminDbSeed => {
-      await setDoc(doc(adminDbSeed, 'users', 'alice'), { displayName: 'Alice' });
+    await testEnv.withSecurityRulesDisabled(async admin => {
+      await setDoc(doc(admin.firestore(), 'users', 'alice'), {
+        displayName: 'Alice',
+      });
     });
 
     await assertSucceeds(getDoc(doc(adminDb, 'users', 'alice')));
@@ -92,8 +122,12 @@ describe('users collection', () => {
 describe('content collections', () => {
   it('allows signed-in users to read courses but not write them', async () => {
     const aliceDb = context('alice');
-    await testEnv.withSecurityRulesDisabled(async adminDb => {
-      await setDoc(doc(adminDb, 'courses', 'c1'), { title: 'Basics', published: true });
+    await testEnv.withSecurityRulesDisabled(async admin => {
+      const adminDb = admin.firestore();
+      await setDoc(doc(adminDb, 'courses', 'c1'), {
+        title: 'Basics',
+        published: true,
+      });
     });
 
     await assertSucceeds(getDoc(doc(aliceDb, 'courses', 'c1')));
@@ -105,10 +139,16 @@ describe('content collections', () => {
     const contributorDb = context('contrib1', { role: 'contributor' });
 
     await assertFails(
-      setDoc(doc(learnerDb, 'vocabulary', 'w1'), { text: { tifinagh: 'ⴰ' }, validated: false }),
+      setDoc(doc(learnerDb, 'vocabulary', 'w1'), {
+        text: { tifinagh: 'ⴰ' },
+        validated: false,
+      }),
     );
     await assertSucceeds(
-      setDoc(doc(contributorDb, 'vocabulary', 'w1'), { text: { tifinagh: 'ⴰ' }, validated: false }),
+      setDoc(doc(contributorDb, 'vocabulary', 'w1'), {
+        text: { tifinagh: 'ⴰ' },
+        validated: false,
+      }),
     );
   });
 

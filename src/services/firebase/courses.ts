@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  orderBy,
+  query,
+  where,
+  type QueryConstraint,
+} from 'firebase/firestore';
 import type { Firestore } from 'firebase/firestore';
 
 import type { Course, DialectId } from '@/types';
@@ -20,11 +29,16 @@ export async function listCourses(
   db: Firestore = getFirestoreDb(),
 ): Promise<ServiceResult<Course[]>> {
   try {
-    const constraints = [where('published', '==', true), orderBy('order', 'asc')];
+    const constraints: QueryConstraint[] = [
+      where('published', '==', true),
+      orderBy('order', 'asc'),
+    ];
     if (options.dialect) {
       constraints.push(where('dialect', '==', options.dialect));
     }
-    const snap = await getDocs(query(collection(db, 'courses'), ...constraints));
+    const snap = await getDocs(
+      query(collection(db, 'courses'), ...constraints),
+    );
     return ok(snap.docs.map(d => courseFromSnapshot(d.id, d.data())));
   } catch (error) {
     return fail(error);

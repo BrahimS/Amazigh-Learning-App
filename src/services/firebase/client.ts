@@ -1,17 +1,24 @@
-import { getApp, getApps, initializeApp, type FirebaseApp } from 'firebase/app';
+import { getApps, initializeApp, type FirebaseApp } from 'firebase/app';
 import { getFirestore, type Firestore } from 'firebase/firestore';
-import { Platform } from 'react-native';
 
 import { config } from '@/config';
 import { AppError } from '@/utils/errors';
 
 let cachedDb: Firestore | null = null;
 
+/**
+ * Firebase JS SDK app for Firestore access.
+ *
+ * Only projectId/apiKey are needed here; native app ids and the sender id are
+ * used by the native SDK configuration (issues #45/#46) once the Firebase
+ * projects exist (issue #44).
+ */
 export function getFirebaseApp(): FirebaseApp {
-  if (getApps().length > 0) {
-    return getApp();
+  const existing = getApps().find(a => a.name === '[DEFAULT]');
+  if (existing) {
+    return existing;
   }
-  const { projectId, appIdAndroid, appIdIos, messagingSenderId } = config.firebase;
+  const { projectId, apiKey } = config.firebase;
   if (!projectId) {
     throw new AppError(
       'unavailable',
@@ -20,9 +27,7 @@ export function getFirebaseApp(): FirebaseApp {
   }
   return initializeApp({
     projectId,
-    apiKey: config.firebase.apiKey || undefined,
-    appId: Platform.select({ ios: appIdIos, default: appIdAndroid }) || undefined,
-    messagingSenderId: messagingSenderId || undefined,
+    apiKey: apiKey || undefined,
   });
 }
 

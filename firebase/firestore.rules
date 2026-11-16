@@ -3,11 +3,15 @@ service cloud.firestore {
   match /databases/{db}/documents {
     function signedIn() { return request.auth != null; }
     function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
-    function hasRole(r) { return signedIn() && request.auth.token.role == r; }
+    function hasRole(r) {
+      return signedIn() && 'role' in request.auth.token && request.auth.token.role == r;
+    }
     function isAdmin() { return hasRole('admin'); }
     function isContributor() { return hasRole('contributor') || isAdmin(); }
 
-    // Users: private profile; role and XP are server-managed (custom claims / future Functions)
+    // Users: private profile; role and XP are server-managed (custom claims / future Functions).
+    // NOTE: sub-collections are listed explicitly — a recursive wildcard here would also
+    // match the parent users/{uid} document and bypass the role/xp protections below.
     match /users/{uid} {
       allow read: if isOwner(uid) || isAdmin();
       allow create: if isOwner(uid) && !('role' in request.resource.data);
@@ -15,8 +19,16 @@ service cloud.firestore {
         && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'xp']);
       allow delete: if isAdmin();
 
-      // progress, lessonResults, achievements, vocabulary SRS state — owner only
-      match /{sub=**} {
+      match /progress/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /lessonResults/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /achievements/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /vocabulary/{docId} {
         allow read, write: if isOwner(uid) || isAdmin();
       }
     }

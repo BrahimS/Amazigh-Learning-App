@@ -1,4 +1,10 @@
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import type { Firestore } from 'firebase/firestore';
 
 import type { DialectId, LearningGoal, UiLanguage, UserProfile } from '@/types';

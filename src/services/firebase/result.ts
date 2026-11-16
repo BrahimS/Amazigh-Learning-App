@@ -1,6 +1,8 @@
 import { AppError, mapFirebaseError } from '@/utils/errors';
 
-export type ServiceResult<T> = { ok: true; data: T } | { ok: false; error: AppError };
+export type ServiceResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; error: AppError };
 
 export function ok<T>(data: T): ServiceResult<T> {
   return { ok: true, data };

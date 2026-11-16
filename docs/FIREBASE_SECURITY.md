@@ -22,15 +22,17 @@ If a secret is committed by mistake: rotate it immediately, then purge it from h
 
 ## Roles
 
-| Role | Capabilities |
-|------|-------------|
-| `learner` | Read published content; read and write own profile and progress |
+| Role          | Capabilities                                                                         |
+| ------------- | ------------------------------------------------------------------------------------ |
+| `learner`     | Read published content; read and write own profile and progress                      |
 | `contributor` | Learner capabilities plus creating draft vocabulary, recordings and cultural content |
-| `admin` | Publish and edit all content; manage roles |
+| `admin`       | Publish and edit all content; manage roles                                           |
 
 Roles are stored as **custom claims** (`request.auth.token.role`). Only admins can set them, using the Admin SDK. `users/{uid}.role` is a read-only mirror for display purposes.
 
-## Firestore rules (target design)
+## Firestore rules
+
+Implemented in `firebase/firestore.rules` and verified against the Emulator Suite (`npm run test:emulator`, 15 tests):
 
 ```
 rules_version = '2';
@@ -38,37 +40,60 @@ service cloud.firestore {
   match /databases/{db}/documents {
     function signedIn() { return request.auth != null; }
     function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
-    function hasRole(r) { return signedIn() && request.auth.token.role == r; }
+    function hasRole(r) {
+      return signedIn() && 'role' in request.auth.token && request.auth.token.role == r;
+    }
     function isAdmin() { return hasRole('admin'); }
+    function isContributor() { return hasRole('contributor') || isAdmin(); }
 
+    // Users: private profile; role and XP are server-managed (custom claims / future Functions).
+    // NOTE: sub-collections are listed explicitly — a recursive wildcard here would also
+    // match the parent users/{uid} document and bypass the role/xp protections below.
     match /users/{uid} {
       allow read: if isOwner(uid) || isAdmin();
       allow create: if isOwner(uid) && !('role' in request.resource.data);
       allow update: if isOwner(uid)
         && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'xp']);
-      match /{sub=**} { allow read, write: if isOwner(uid); }
+      allow delete: if isAdmin();
+
+      match /progress/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /lessonResults/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /achievements/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
+      match /vocabulary/{docId} {
+        allow read, write: if isOwner(uid) || isAdmin();
+      }
     }
 
+    // Published curriculum — readable by any signed-in learner, written by admins
     match /courses/{courseId}/{path=**} {
       allow read: if signedIn();
       allow write: if isAdmin();
     }
 
+    // Vocabulary: contributors create drafts, only admins publish/edit/delete
     match /vocabulary/{id} {
       allow read: if signedIn();
-      allow create: if hasRole('contributor') || isAdmin();
+      allow create: if isContributor();
       allow update, delete: if isAdmin();
     }
 
-    match /{col}/{id} {
-      allow read: if signedIn() && col in ['exercises', 'tifinaghLetters', 'achievements', 'culture'];
+    // Reference content: exercises, letters, achievements, culture articles
+    match /{collection}/{docId} {
+      allow read: if signedIn()
+        && collection in ['exercises', 'tifinaghLetters', 'achievements', 'culture'];
       allow write: if isAdmin();
     }
   }
 }
 ```
 
-The final rules live in `firebase/firestore.rules`. They are implemented in the issue "Implement Firestore security rules" and tested with the Emulator Suite in "Test Firestore security".
+Deployment to the dev Firebase project happens once the projects exist (issue #44); until then the rules run in the emulator via `npm run test:emulator` and `firebase deploy --only firestore:rules --project amazigh-learning-dev`.
 
 > Note: XP is written by the client in the MVP. Before a public launch, move XP and achievement awarding to Cloud Functions to prevent tampering.
 

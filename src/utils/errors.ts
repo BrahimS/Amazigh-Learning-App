@@ -33,7 +33,7 @@ export function mapFirebaseError(error: unknown): string {
 
 /** Logs errors with context while developing; silent in production builds. */
 export function logError(context: string, error: unknown): void {
-  if (__DEV__) {
+  if (typeof __DEV__ !== 'undefined' && __DEV__) {
     console.error(`[${context}]`, error);
   }
 }

@@ -1,4 +1,13 @@
-import { collection, doc, getDoc, getDocs, limit, query, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  where,
+  type QueryConstraint,
+} from 'firebase/firestore';
 import type { Firestore } from 'firebase/firestore';
 
 import type { DialectId, VocabularyItem } from '@/types';
@@ -17,7 +26,7 @@ export async function listVocabulary(
   db: Firestore = getFirestoreDb(),
 ): Promise<ServiceResult<VocabularyItem[]>> {
   try {
-    const constraints = [where('validated', '==', true)];
+    const constraints: QueryConstraint[] = [where('validated', '==', true)];
     if (options.dialect) {
       constraints.push(where('dialect', '==', options.dialect));
     }
@@ -25,8 +34,15 @@ export async function listVocabulary(
       constraints.push(where('category', '==', options.category));
     }
     constraints.push(limit(options.maxResults ?? 50));
-    const snap = await getDocs(query(collection(db, 'vocabulary'), ...constraints));
-    return ok(snap.docs.map(d => ({ id: d.id, ...(d.data() as Omit<VocabularyItem, 'id'>) })));
+    const snap = await getDocs(
+      query(collection(db, 'vocabulary'), ...constraints),
+    );
+    return ok(
+      snap.docs.map(d => ({
+        id: d.id,
+        ...(d.data() as Omit<VocabularyItem, 'id'>),
+      })),
+    );
   } catch (error) {
     return fail(error);
   }
@@ -38,7 +54,11 @@ export async function getVocabularyItem(
 ): Promise<ServiceResult<VocabularyItem | null>> {
   try {
     const snap = await getDoc(doc(db, 'vocabulary', wordId));
-    return ok(snap.exists() ? { id: snap.id, ...(snap.data() as Omit<VocabularyItem, 'id'>) } : null);
+    return ok(
+      snap.exists()
+        ? { id: snap.id, ...(snap.data() as Omit<VocabularyItem, 'id'>) }
+        : null,
+    );
   } catch (error) {
     return fail(error);
   }
