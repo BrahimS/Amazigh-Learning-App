@@ -2,9 +2,9 @@
  * Navigation param lists.
  *
  * Canonical route names and params are documented in `docs/TECHNICAL_ARCHITECTURE.md` §4.1.
- * When React Navigation is configured (issue #37), these lists are passed to the
- * navigators via `NavigatorScreenParams`.
  */
+import type { NavigatorScreenParams } from '@react-navigation/native';
+
 import type { DialectId } from './dialect';
 
 export type AuthStackParamList = {
@@ -30,7 +30,7 @@ export type LearnStackParamList = {
 };
 
 export type VocabularyStackParamList = {
-  Library: { query?: string };
+  Library: { query?: string } | undefined;
   WordDetails: { vocabularyId: string };
   Flashcards: { deckId?: string };
 };
@@ -54,15 +54,15 @@ export type ProfileStackParamList = {
 };
 
 export type MainTabParamList = {
-  Learn: LearnStackParamList;
-  Vocabulary: VocabularyStackParamList;
-  Tifinagh: TifinaghStackParamList;
-  Culture: CultureStackParamList;
-  Profile: ProfileStackParamList;
+  Learn: NavigatorScreenParams<LearnStackParamList>;
+  Vocabulary: NavigatorScreenParams<VocabularyStackParamList>;
+  Tifinagh: NavigatorScreenParams<TifinaghStackParamList>;
+  Culture: NavigatorScreenParams<CultureStackParamList>;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type RootStackParamList = {
-  Auth: AuthStackParamList;
-  Onboarding: OnboardingStackParamList;
-  Main: MainTabParamList;
+  Auth: NavigatorScreenParams<AuthStackParamList>;
+  Onboarding: NavigatorScreenParams<OnboardingStackParamList>;
+  Main: NavigatorScreenParams<MainTabParamList>;
 };
