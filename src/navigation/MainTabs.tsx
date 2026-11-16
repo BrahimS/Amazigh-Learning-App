@@ -7,14 +7,12 @@ import {
   CultureHomeScreen,
   ArticleScreen,
 } from '@/screens/culture/CultureScreens';
-import {
-  DashboardScreen,
-  CourseDetailsScreen,
-  ExerciseScreen,
-  LessonCompleteScreen,
-  LessonScreen,
-  ModuleScreen,
-} from '@/screens/learn/LearnScreens';
+import { CourseDetailsScreen } from '@/screens/learn/CourseDetailsScreen';
+import { DashboardScreen } from '@/screens/learn/DashboardScreen';
+import { ExerciseScreen } from '@/screens/learn/ExerciseScreen';
+import { LessonCompleteScreen } from '@/screens/learn/LessonCompleteScreen';
+import { LessonScreen } from '@/screens/learn/LessonScreen';
+import { ModuleScreen } from '@/screens/learn/ModuleScreen';
 import {
   ProfileScreen,
   AchievementsScreen,
