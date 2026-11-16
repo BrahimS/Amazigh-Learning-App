@@ -11,7 +11,8 @@
  * - Seeds the sample curriculum (idempotent).
  * - Builds/installs the dev client and starts Metro via `expo run:*`.
  */
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -49,6 +50,75 @@ function spawnChild(command, args, options = {}) {
 
 function waitForExit(child) {
   return new Promise(resolve => child.on('exit', code => resolve(code ?? 1)));
+}
+
+/** Runs a probe command, returning its combined output or null if missing. */
+function probe(command, args) {
+  const result = spawnSync(command, args, { encoding: 'utf8' });
+  if (result.error) {
+    return null;
+  }
+  return `${result.stdout ?? ''}${result.stderr ?? ''}`;
+}
+
+function fail(message) {
+  console.error(`\n✗ ${message}\n`);
+  process.exit(1);
+}
+
+/** Fail fast with actionable messages instead of obscure toolchain errors. */
+function preflight() {
+  const [nodeMajor, nodeMinor] = process.versions.node.split('.').map(Number);
+  if (nodeMajor < 22 || (nodeMajor === 22 && nodeMinor < 13)) {
+    fail(
+      `Node.js >= 22.13 is required (found ${process.versions.node}). ` +
+        'See "Prerequisites" in README.md.',
+    );
+  }
+
+  // The Firebase emulators (and the seed script) run on the JVM.
+  const javaVersion = probe('java', ['-version']);
+  if (javaVersion === null) {
+    fail(
+      'Java is not installed — the Firebase emulators need it. See "Prerequisites" in README.md.',
+    );
+  }
+  const javaMajor = Number(javaVersion.match(/version "(\d+)/)?.[1] ?? 0);
+  if (javaMajor < 11) {
+    fail(
+      `Java 11+ is required for the Firebase emulators (found ${javaVersion
+        .split('\n')[0]
+        .trim()}).`,
+    );
+  }
+
+  if (platform === 'android') {
+    const sdk = process.env.ANDROID_HOME ?? process.env.ANDROID_SDK_ROOT;
+    if (!sdk) {
+      fail(
+        'ANDROID_HOME is not set. Point it at your Android SDK ' +
+          '(e.g. export ANDROID_HOME="$HOME/Library/Android/sdk" on macOS).',
+      );
+    }
+    if (!existsSync(path.join(sdk, 'platform-tools', 'adb'))) {
+      fail(
+        `No adb found under ${sdk}/platform-tools — check your Android SDK installation.`,
+      );
+    }
+  }
+
+  if (platform === 'ios') {
+    if (process.platform !== 'darwin') {
+      fail(
+        'dev:ios requires macOS with Xcode. Use dev:android or run iOS on a Mac.',
+      );
+    }
+    if (probe('xcodebuild', ['-version']) === null) {
+      fail(
+        'Xcode is not installed (xcodebuild not found). Install Xcode and accept its license.',
+      );
+    }
+  }
 }
 
 /** Any HTTP response (even 4xx) means the emulator is up; only a refused
@@ -99,7 +169,9 @@ async function ensureEmulators() {
   ]);
   if (!(await waitForEmulators())) {
     throw new Error(
-      `Firebase emulators did not become ready within ${EMULATOR_START_TIMEOUT_MS / 1000}s.`,
+      `Firebase emulators did not become ready within ${
+        EMULATOR_START_TIMEOUT_MS / 1000
+      }s.`,
     );
   }
 }
@@ -155,6 +227,8 @@ process.on('SIGINT', () => cleanup(130));
 process.on('SIGTERM', () => cleanup(143));
 
 async function main() {
+  preflight();
+
   console.log(`\nAmazigh Learning — dev:${platform} (project ${PROJECT_ID})\n`);
   await ensureEmulators();
   await seed();
@@ -175,6 +249,11 @@ async function main() {
     env.LANG = env.LANG ?? 'en_US.UTF-8';
     env.LC_ALL = env.LC_ALL ?? 'en_US.UTF-8';
   }
+
+  console.log(
+    'When the app opens, tap "Continue as guest (dev)" on the Welcome screen ' +
+      'to enter with the seeded curriculum.',
+  );
 
   const code = await waitForExit(
     spawnChild('npx', ['expo', `run:${platform}`], { env }),
