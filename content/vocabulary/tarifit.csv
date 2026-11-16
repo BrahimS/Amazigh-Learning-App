@@ -1,0 +1,17 @@
+# UNVALIDATED STARTER LIST — Tarifit (Rif). Must be reviewed by native speakers (#85).
+# Tifinagh is generated from the Latin column (IRCAM mapping); do not add a tifinagh column.
+# Tarifit spirantisation and l→r shifts are not marked; native review required.
+latin,fr,en,partOfSpeech,category,exampleLatin,exampleFr,exampleEn
+azul,bonjour,hello,intj,greetings
+tanmmirt,merci,thank you,n,greetings
+ijjen,un,one,num,numbers
+aryaz,homme,man,n,family
+tamɣart,femme,woman,n,family
+aman,eau,water,n,food
+aɣrum,pain,bread,n,food
+adrar,montagne,mountain,n,nature
+afus,main,hand,n,body
+ixf,tête,head,n,body
+aqzin,chien,dog,n,animals
+ass,jour,day,n,time
+taddart,maison,house,n,house

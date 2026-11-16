@@ -238,6 +238,17 @@ describe('vocabulary service', () => {
       expect(result.data.map(v => v.id)).toEqual(['w1']);
     }
   });
+
+  it('includes unvalidated words only when asked', async () => {
+    const result = await listVocabulary(
+      { dialect: 'tachelhit', includeUnvalidated: true },
+      db,
+    );
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.data.map(v => v.id).sort()).toEqual(['w1', 'w2']);
+    }
+  });
 });
 
 describe('users service', () => {

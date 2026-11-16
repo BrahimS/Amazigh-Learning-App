@@ -58,6 +58,12 @@ Sub-collections:
 ### `vocabulary/{wordId}`
 `{ text: AmazighText, translations: LocalizedText, dialect, partOfSpeech, category, examples: [{ text: AmazighText, translations }], audioPath, validated: boolean, validatedBy }`
 
+- Document id: `{dialect}-{latin-slug}-{partOfSpeech}` (e.g. `tachelhit-azul-intj`).
+- `partOfSpeech`: `n` | `v` | `adj` | `num` | `intj` | `adv` | `pron`.
+- `category`: `greetings`, `numbers`, `family`, `food`, `animals`, `colors`, `body`, `verbs`, `time`, `nature`, `house`, `adjectives`, `places`.
+- `validated` stays `false` until a native speaker reviews the entry; the app lists only validated words unless `includeUnvalidated` is set (dev builds).
+- Source of truth for seed content: `content/vocabulary/{dialect}.csv` (Latin + translations). Tifinagh is generated with the IRCAM mapping in `scripts/lib/tifinagh.mjs`; run `npm run validate:vocabulary` before committing.
+
 ### `tifinaghLetters/{letterId}`
 `{ glyph: "ⴰ", unicode: "U+2D30", name: "ya", latin: "a", ipa, audioPath, order, examples: wordId[] }`
 

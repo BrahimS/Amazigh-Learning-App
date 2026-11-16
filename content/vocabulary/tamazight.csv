@@ -1,0 +1,27 @@
+# UNVALIDATED STARTER LIST — Central Atlas Tamazight. Must be reviewed by native speakers (#85).
+# Tifinagh is generated from the Latin column (IRCAM mapping); do not add a tifinagh column.
+latin,fr,en,partOfSpeech,category,exampleLatin,exampleFr,exampleEn
+azul,bonjour,hello,intj,greetings
+tanmmirt,merci,thank you,n,greetings
+yan,un,one,num,numbers
+sin,deux,two,num,numbers
+kraḍ,trois,three,num,numbers
+kkuẓ,quatre,four,num,numbers
+smmus,cinq,five,num,numbers
+argaz,homme,man,n,family
+tamɣart,femme,woman,n,family
+aman,eau,water,n,food
+aɣrum,pain,bread,n,food
+adrar,montagne,mountain,n,nature
+asif,rivière,river,n,nature
+ayyur,lune / mois,moon / month,n,nature
+tafukt,soleil,sun,n,nature
+itri,étoile,star,n,nature
+afus,main,hand,n,body
+ixf,tête,head,n,body
+aydi,chien,dog,n,animals
+ayyis,cheval,horse,n,animals
+ass,jour,day,n,time
+iḍ,nuit,night,n,time
+taddart,maison,house,n,house
+tawwurt,porte,door,n,house
