@@ -5,8 +5,21 @@ import { WelcomeCard } from '@/components/WelcomeCard';
 import { useTheme } from '@/theme';
 import { StyleSheet, View } from 'react-native';
 
-export function SplashScreen() {
+export function SplashScreen({
+  navigation,
+}: {
+  navigation?: { replace: (route: 'Welcome') => void };
+}) {
   const theme = useTheme();
+
+  React.useEffect(() => {
+    if (!navigation) {
+      return;
+    }
+    const timer = setTimeout(() => navigation.replace('Welcome'), 2000);
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.primaryLight }]}
