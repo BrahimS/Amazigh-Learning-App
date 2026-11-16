@@ -66,8 +66,12 @@ A modern, interactive mobile application for learning **Moroccan Amazigh (Tamazi
 ### Prerequisites
 
 - Node.js 22.13+ and npm
-- For Android: Android Studio (SDK 35+, platform-tools) and a JDK 17+
+- Java 11+ (the Firebase emulators run on the JVM)
+- For Android: Android Studio (SDK 35+, platform-tools) and `ANDROID_HOME` set
 - For iOS: a Mac with Xcode 16+ (or EAS Build for cloud builds)
+
+`npm run dev:*` checks these prerequisites up front and fails with an
+actionable message instead of an obscure toolchain error.
 
 ### Setup
 
@@ -91,7 +95,9 @@ npm run dev:ios       # iOS simulator (macOS only)
 `dev:*` starts the Firebase emulators (Firestore + Auth) if they are not already
 running, seeds the sample curriculum, then builds the dev client, installs it and
 starts Metro. Already-running emulators are reused and left alone; emulators
-started by the script stop when you quit (Ctrl+C).
+started by the script stop when you quit (Ctrl+C). Restarting the emulators wipes
+their data — the app detects the stale guest session and returns you to the
+Welcome screen automatically, so just tap "Continue as guest (dev)" again.
 
 **Manual:**
 
