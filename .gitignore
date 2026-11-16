@@ -99,3 +99,10 @@ GoogleService-Info.plist
 firebase-debug.log*
 firestore-debug.log*
 ui-debug.log*
+
+# Expo
+.expo/
+dist/
+web-build/
+android/
+ios/

@@ -6,8 +6,9 @@
  */
 
 import React from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RootNavigator } from '@/navigation/RootNavigator';
@@ -15,7 +16,7 @@ import { RootNavigator } from '@/navigation/RootNavigator';
 function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar style="dark" />
       <ErrorBoundary>
         <View style={styles.container}>
           <RootNavigator />
