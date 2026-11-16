@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   type PressableProps,
+  type StyleProp,
   type ViewStyle,
 } from 'react-native';
 
@@ -18,6 +19,7 @@ interface ButtonProps extends Omit<PressableProps, 'children' | 'style'> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   loading?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function Button({
@@ -26,6 +28,7 @@ export function Button({
   size = 'md',
   loading = false,
   disabled,
+  style,
   ...rest
 }: ButtonProps) {
   const theme = useTheme();
@@ -61,6 +64,7 @@ export function Button({
       style={({ pressed }) => [
         containerStyle,
         pressed && !isDisabled && styles.pressed,
+        style,
       ]}
       {...rest}
     >

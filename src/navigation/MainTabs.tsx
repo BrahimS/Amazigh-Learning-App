@@ -1,6 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 
 import {
   CultureHomeScreen,
@@ -16,10 +17,10 @@ import {
 } from '@/screens/learn/LearnScreens';
 import {
   ProfileScreen,
-  SettingsScreen,
   AchievementsScreen,
   StatisticsScreen,
 } from '@/screens/profile/ProfileScreens';
+import { SettingsScreen } from '@/screens/profile/SettingsScreen';
 import {
   FlashcardsScreen,
   LibraryScreen,
@@ -110,32 +111,33 @@ function ProfileStackNavigator() {
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 export function MainTabs() {
+  const { t } = useTranslation();
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name="Learn"
         component={LearnStackNavigator}
-        options={{ title: 'Learn' }}
+        options={{ title: t('tabs.learn') }}
       />
       <Tab.Screen
         name="Vocabulary"
         component={VocabularyStackNavigator}
-        options={{ title: 'Vocabulary' }}
+        options={{ title: t('tabs.vocabulary') }}
       />
       <Tab.Screen
         name="Tifinagh"
         component={TifinaghStackNavigator}
-        options={{ title: 'Tifinagh' }}
+        options={{ title: t('tabs.tifinagh') }}
       />
       <Tab.Screen
         name="Culture"
         component={CultureStackNavigator}
-        options={{ title: 'Culture' }}
+        options={{ title: t('tabs.culture') }}
       />
       <Tab.Screen
         name="Profile"
         component={ProfileStackNavigator}
-        options={{ title: 'Profile' }}
+        options={{ title: t('tabs.profile') }}
       />
     </Tab.Navigator>
   );
