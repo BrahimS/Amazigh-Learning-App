@@ -1,0 +1,70 @@
+export default {
+  common: {
+    continue: 'Continuer',
+    save: 'Enregistrer',
+    cancel: 'Annuler',
+    back: 'Retour',
+    loading: 'Chargement…',
+  },
+  tabs: {
+    learn: 'Apprendre',
+    vocabulary: 'Vocabulaire',
+    tifinagh: 'Tifinagh',
+    culture: 'Culture',
+    profile: 'Profil',
+  },
+  onboarding: {
+    dialectTitle: 'Choisissez votre dialecte',
+    dialectSubtitle: 'Le contenu linguistique sera adapté à votre choix.',
+    goalTitle: 'Quel est votre objectif ?',
+    goalSubtitle: 'Nous adapterons les exercices à votre rythme.',
+    dailyTitle: 'Objectif quotidien',
+    dailySubtitle: 'Temps d’apprentissage visé chaque jour',
+    start: 'Commencer',
+    dialects: {
+      tachelhit: {
+        name: 'Tachelhit',
+        description: 'Amazigh du Sud — Souss, Anti-Atlas',
+      },
+      tamazight: {
+        name: 'Tamazight',
+        description: 'Amazigh du Centre — Haut Atlas, Moyen Atlas',
+      },
+      tarifit: { name: 'Tarifit', description: 'Amazigh du Nord — Rif' },
+    },
+    goals: {
+      travel: 'Voyager',
+      family: 'Famille',
+      school: 'École',
+      culture: 'Culture',
+      work: 'Travail',
+    },
+  },
+  settings: {
+    title: 'Paramètres',
+    language: 'Langue',
+    dialect: 'Dialecte',
+    learning: 'Apprentissage',
+    goal: 'Objectif',
+    dailyGoal: 'Objectif quotidien',
+    about: 'À propos',
+  },
+  errors: {
+    default: 'Une erreur est survenue. Veuillez réessayer.',
+    unknown: 'Une erreur inconnue est survenue.',
+    'auth/invalid-email': 'Cette adresse e-mail est invalide.',
+    'auth/invalid-credential': 'E-mail ou mot de passe incorrect.',
+    'auth/wrong-password': 'Mot de passe incorrect.',
+    'auth/user-not-found': 'Aucun compte ne correspond à cet e-mail.',
+    'auth/email-already-in-use': 'Un compte existe déjà avec cet e-mail.',
+    'auth/weak-password':
+      'Le mot de passe est trop faible (6 caractères minimum).',
+    'auth/too-many-requests': 'Trop de tentatives. Réessayez plus tard.',
+    'auth/network-request-failed':
+      'Problème de connexion. Vérifiez votre réseau.',
+    'permission-denied':
+      'Vous n’avez pas l’autorisation d’effectuer cette action.',
+    unauthenticated: 'Votre session a expiré. Reconnectez-vous.',
+    unavailable: 'Le service est temporairement indisponible. Réessayez.',
+  },
+} as const;
