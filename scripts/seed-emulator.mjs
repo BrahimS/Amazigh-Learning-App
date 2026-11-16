@@ -234,8 +234,29 @@ await testEnv.withSecurityRulesDisabled(async context => {
       criteria: { type: 'lessons', threshold: 1 },
     });
 
+  const articles = [
+    {
+      id: 'yennayer',
+      category: 'traditions',
+      title: 'Yennayer, the Amazigh New Year',
+      body: 'Yennayer is the Amazigh New Year, celebrated around January 12–13. Families gather for a shared meal, and the day marks the return of light after the winter solstice. It is one of the most important festivals across Amazigh communities in North Africa.',
+      region: 'North Africa',
+      published: true,
+    },
+    {
+      id: 'tifinagh-script',
+      category: 'history',
+      title: 'The Tifinagh script',
+      body: 'Tifinagh is one of the oldest writing systems still in use. Its modern form descends from ancient Libyco-Berber inscriptions and is written from right to left. Today it appears on road signs, murals and, of course, in this app.',
+      published: true,
+    },
+  ];
+  for (const article of articles) {
+    await db.collection('cultureArticles').doc(article.id).set(article);
+  }
+
   console.log(
-    `Seeded: 1 course (2 modules, 3 lessons), 3 exercises, ${wordCount} words (unvalidated), 1 letter, 1 achievement`,
+    `Seeded: 1 course (2 modules, 3 lessons), 3 exercises, ${wordCount} words (unvalidated), 1 letter, 1 achievement, ${articles.length} articles`,
   );
 });
 
