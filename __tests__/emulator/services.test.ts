@@ -23,6 +23,11 @@ import type { Firestore } from 'firebase/firestore';
 
 import { getCourse, listCourses } from '@/services/firebase/courses';
 import {
+  getLesson,
+  listLessons,
+  listModules,
+} from '@/services/firebase/modules';
+import {
   getUserProfile,
   updateLearningPreferences,
 } from '@/services/firebase/users';
@@ -94,6 +99,53 @@ beforeEach(async () => {
       published: true,
       moduleCount: 0,
     });
+    await setDoc(doc(adminDb as never, 'courses', 'c1', 'modules', 'm1'), {
+      title: { fr: 'Module 1', en: 'Module 1' },
+      order: 1,
+      lessonCount: 2,
+    });
+    await setDoc(doc(adminDb as never, 'courses', 'c1', 'modules', 'm2'), {
+      title: { fr: 'Module 2', en: 'Module 2' },
+      order: 2,
+      lessonCount: 1,
+    });
+    await setDoc(
+      doc(adminDb as never, 'courses', 'c1', 'modules', 'm1', 'lessons', 'l1'),
+      {
+        title: { fr: 'Leçon 1', en: 'Lesson 1' },
+        order: 1,
+        estimatedMinutes: 10,
+        xpReward: 20,
+        steps: [
+          {
+            type: 'content',
+            title: { fr: 'Intro', en: 'Intro' },
+            body: { fr: '…', en: '…' },
+          },
+          { type: 'exercise', exerciseId: 'ex-1' },
+        ],
+      },
+    );
+    await setDoc(
+      doc(adminDb as never, 'courses', 'c1', 'modules', 'm1', 'lessons', 'l2'),
+      {
+        title: { fr: 'Leçon 2', en: 'Lesson 2' },
+        order: 2,
+        estimatedMinutes: 12,
+        xpReward: 25,
+        steps: [{ type: 'exercise', exerciseId: 'ex-2' }],
+      },
+    );
+    await setDoc(
+      doc(adminDb as never, 'courses', 'c1', 'modules', 'm2', 'lessons', 'l3'),
+      {
+        title: { fr: 'Leçon 3', en: 'Lesson 3' },
+        order: 1,
+        estimatedMinutes: 15,
+        xpReward: 30,
+        steps: [],
+      },
+    );
     await setDoc(doc(adminDb as never, 'vocabulary', 'w1'), {
       text: { tifinagh: 'ⴰⵣⵓⵍ', latin: 'azul' },
       translations: { fr: 'Bonjour', en: 'Hello' },
@@ -139,6 +191,41 @@ describe('courses service', () => {
     const found = await getCourse('c1', db);
     expect(found.ok && found.data?.id).toBe('c1');
     const missing = await getCourse('nope', db);
+    expect(missing.ok && missing.data).toBeNull();
+  });
+});
+
+describe('modules service', () => {
+  it('lists modules of a course ordered by order', async () => {
+    const result = await listModules('c1', db);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.data.map(m => m.id)).toEqual(['m1', 'm2']);
+      expect(result.data[0].courseId).toBe('c1');
+      expect(result.data[0].lessonCount).toBe(2);
+    }
+  });
+
+  it('lists lessons of a module ordered by order', async () => {
+    const result = await listLessons('c1', 'm1', db);
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.data.map(l => l.id)).toEqual(['l1', 'l2']);
+      expect(result.data[0].moduleId).toBe('m1');
+    }
+  });
+
+  it('gets a lesson with its steps or null', async () => {
+    const found = await getLesson('c1', 'm1', 'l1', db);
+    expect(found.ok && found.data?.id).toBe('l1');
+    if (found.ok && found.data) {
+      expect(found.data.steps).toHaveLength(2);
+      expect(found.data.steps[1]).toEqual({
+        type: 'exercise',
+        exerciseId: 'ex-1',
+      });
+    }
+    const missing = await getLesson('c1', 'm1', 'nope', db);
     expect(missing.ok && missing.data).toBeNull();
   });
 });

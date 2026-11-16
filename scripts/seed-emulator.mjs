@@ -41,10 +41,13 @@ await testEnv.withSecurityRulesDisabled(async context => {
       order: 1,
       imageUrl: 'https://example.com/courses/azul-basics-a1.webp',
       published: true,
-      moduleCount: 1,
+      moduleCount: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
+  // NOTE: all linguistic content below is placeholder pending native-speaker
+  // review (issue #85); exercise answers are not validated.
 
   await db
     .collection('courses')
@@ -54,6 +57,17 @@ await testEnv.withSecurityRulesDisabled(async context => {
     .set({
       title: { fr: 'Module 1 — Premiers mots', en: 'Module 1 — First words' },
       order: 1,
+      lessonCount: 2,
+    });
+
+  await db
+    .collection('courses')
+    .doc('azul-basics-a1')
+    .collection('modules')
+    .doc('mod-2')
+    .set({
+      title: { fr: 'Module 2 — Vie quotidienne', en: 'Module 2 — Daily life' },
+      order: 2,
       lessonCount: 1,
     });
 
@@ -83,6 +97,56 @@ await testEnv.withSecurityRulesDisabled(async context => {
     });
 
   await db
+    .collection('courses')
+    .doc('azul-basics-a1')
+    .collection('modules')
+    .doc('mod-1')
+    .collection('lessons')
+    .doc('lesson-2')
+    .set({
+      title: { fr: 'Se présenter', en: 'Introducing yourself' },
+      order: 2,
+      estimatedMinutes: 12,
+      xpReward: 25,
+      steps: [
+        {
+          type: 'content',
+          title: { fr: 'Dire son nom', en: 'Saying your name' },
+          body: {
+            fr: 'Structure de base : « ⵉⵣⵎ / isem » pour « nom ».',
+            en: 'Basic structure: “ⵉⵣⵎ / isem” for “name”.',
+          },
+        },
+        { type: 'exercise', exerciseId: 'ex-intro-1' },
+      ],
+    });
+
+  await db
+    .collection('courses')
+    .doc('azul-basics-a1')
+    .collection('modules')
+    .doc('mod-2')
+    .collection('lessons')
+    .doc('lesson-3')
+    .set({
+      title: { fr: 'La famille', en: 'Family' },
+      order: 1,
+      estimatedMinutes: 15,
+      xpReward: 30,
+      steps: [
+        {
+          type: 'content',
+          title: { fr: 'Membres de la famille', en: 'Family members' },
+          body: {
+            fr: 'Vocabulaire de base pour parler de la famille proche.',
+            en: 'Basic vocabulary for talking about close family.',
+          },
+        },
+        { type: 'exercise', exerciseId: 'ex-family-1' },
+      ],
+    });
+
+  await db
     .collection('exercises')
     .doc('ex-greeting-1')
     .set({
@@ -96,6 +160,34 @@ await testEnv.withSecurityRulesDisabled(async context => {
       options: ['azul', 'agadir', 'amaziɣ'],
       answer: 'azul',
       audioPath: 'audio/sentences/tachelhit/ex-greeting-1.m4a',
+      dialect: 'tachelhit',
+    });
+
+  await db
+    .collection('exercises')
+    .doc('ex-intro-1')
+    .set({
+      type: 'mcq',
+      prompt: {
+        fr: 'Comment dit-on « nom » en tamazight (latin) ?',
+        en: 'How do you say “name” in Tamazight (Latin script)?',
+      },
+      options: ['isem', 'idurar', 'asif'],
+      answer: 'isem',
+      dialect: 'tachelhit',
+    });
+
+  await db
+    .collection('exercises')
+    .doc('ex-family-1')
+    .set({
+      type: 'mcq',
+      prompt: {
+        fr: 'Quel mot désigne la « mère » ? (placeholder)',
+        en: 'Which word means “mother”? (placeholder)',
+      },
+      options: ['tamettut', 'argaz', 'aqcic'],
+      answer: 'tamettut',
       dialect: 'tachelhit',
     });
 
@@ -146,7 +238,7 @@ await testEnv.withSecurityRulesDisabled(async context => {
     });
 
   console.log(
-    'Seeded: 1 course, 1 module, 1 lesson, 1 exercise, 1 word, 1 letter, 1 achievement',
+    'Seeded: 1 course (2 modules, 3 lessons), 3 exercises, 1 word, 1 letter, 1 achievement',
   );
 });
 
