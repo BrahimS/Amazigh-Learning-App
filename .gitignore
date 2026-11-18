@@ -106,3 +106,9 @@ dist/
 web-build/
 android/
 ios/
+# Design artboards use ios/ and android/ as per-device subfolders.
+!design/xd/**/ios/
+!design/xd/**/android/
+
+# Generated UX/UI review page (regenerate with: node design/generate-artboards.mjs --overview)
+design/overview.html
