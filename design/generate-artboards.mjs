@@ -6,6 +6,7 @@
  *
  *   node design/generate-artboards.mjs            # SVG artboards + tokens.json
  *   node design/generate-artboards.mjs --overview # also writes overview.html
+ *   DESIGN_VARIANT=B node design/generate-artboards.mjs # master-prompt palette + Inter → xd-variant-b/
  *
  * Sample words come from content/vocabulary/*.csv and the emulator seed; they
  * are unvalidated (#85). Nothing linguistic is invented here.
@@ -17,7 +18,8 @@ import { fileURLToPath } from 'node:url';
 import { latinToTifinagh as tif } from '../scripts/lib/tifinagh.mjs';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.join(ROOT, 'xd');
+const VARIANT_B = process.env.DESIGN_VARIANT === 'B';
+const OUT = path.join(ROOT, VARIANT_B ? 'xd-variant-b' : 'xd');
 
 // ─── Tokens (mirror src/theme) ──────────────────────────────────────────────
 const C = {
@@ -42,11 +44,31 @@ const C = {
   textSecondary: '#57534E',
   textInverse: '#FFFFFF',
 };
+// Variant B: master-prompt palette (forest green, terracotta, ochre, sand, indigo).
+if (VARIANT_B) {
+  Object.assign(C, {
+    primary: '#176B55',
+    primaryPressed: '#0F4F3F',
+    primaryLight: '#E8B94F',
+    primaryTint: '#DDEEE7',
+    secondary: '#D66B3D',
+    secondaryLight: '#EBA88A',
+    secondaryTint: '#F8E1D6',
+    accent: '#176B55',
+    accentLight: '#8CC7B5',
+    accentTint: '#DDEEE7',
+    background: '#F6F0E5',
+    border: '#E6DCCB',
+    skeleton: '#ECE3D3',
+    textPrimary: '#273447',
+    textSecondary: '#5B6577',
+  });
+}
 const FONT_SIZE = { xs: 12, sm: 14, md: 16, lg: 18, xl: 22, xxl: 28 };
 const SPACING = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 };
 const RADIUS = { sm: 8, md: 16, lg: 24 };
 const FAMILY = {
-  latin: 'Poppins, sans-serif',
+  latin: VARIANT_B ? 'Inter, sans-serif' : 'Poppins, sans-serif',
   tif: "'Noto Sans Tifinagh', sans-serif",
 };
 
@@ -2811,20 +2833,21 @@ function designSystemBoard() {
 
   h2(
     'Color',
-    'Amazigh flag palette. Contrast ratios are text on background #FAF7F2 (AA needs 4.5:1 for body text).',
+    `Amazigh flag palette. Contrast ratios are text on background ${C.background} (AA needs 4.5:1 for body text).`,
   );
+  const n = (a, b) => (VARIANT_B ? b : a);
   const swatches = [
-    ['primary', 'Saffron / ochre', C.primary],
-    ['secondary', 'Atlas blue', C.secondary],
-    ['accent', 'Argan green', C.accent],
+    ['primary', n('Saffron / ochre', 'Forest green'), C.primary],
+    ['secondary', n('Atlas blue', 'Terracotta'), C.secondary],
+    ['accent', n('Argan green', 'Success (forest green)'), C.accent],
     ['danger', 'Flag ⵣ red', C.danger],
-    ['textPrimary', 'Text', C.textPrimary],
+    ['textPrimary', n('Text', 'Indigo (text)'), C.textPrimary],
     ['textSecondary', 'Text secondary', C.textSecondary],
-    ['primaryLight', 'Saffron light', C.primaryLight],
-    ['secondaryLight', 'Atlas light', C.secondaryLight],
-    ['accentLight', 'Argan light', C.accentLight],
+    ['primaryLight', n('Saffron light', 'Ochre'), C.primaryLight],
+    ['secondaryLight', n('Atlas light', 'Terracotta light'), C.secondaryLight],
+    ['accentLight', n('Argan light', 'Forest light'), C.accentLight],
     ['dangerLight', 'Red light', C.dangerLight],
-    ['background', 'Warm off-white', C.background],
+    ['background', n('Warm off-white', 'Sand'), C.background],
     ['border', 'Border', C.border],
   ];
   const sw = (W - P * 2 - 5 * 24) / 6;
@@ -2872,7 +2895,9 @@ function designSystemBoard() {
 
   h2(
     'Typography',
-    'Poppins for Latin script · Noto Sans Tifinagh for Tifinagh (always visible).',
+    `${
+      VARIANT_B ? 'Inter' : 'Poppins'
+    } for Latin script · Noto Sans Tifinagh for Tifinagh (always visible).`,
   );
   const scale = [
     ['xxl', FONT_SIZE.xxl, 700, 'Lesson complete!'],
@@ -3242,21 +3267,22 @@ function main() {
     }
   }
 
-  fs.writeFileSync(
-    path.join(ROOT, 'tokens.json'),
-    `${JSON.stringify(
-      {
-        color: C,
-        fontSize: FONT_SIZE,
-        spacing: SPACING,
-        radius: RADIUS,
-        fontFamily: { latin: 'Poppins', tifinagh: 'Noto Sans Tifinagh' },
-        artboards: DEVICES,
-      },
-      null,
-      2,
-    )}\n`,
-  );
+  if (!VARIANT_B)
+    fs.writeFileSync(
+      path.join(ROOT, 'tokens.json'),
+      `${JSON.stringify(
+        {
+          color: C,
+          fontSize: FONT_SIZE,
+          spacing: SPACING,
+          radius: RADIUS,
+          fontFamily: { latin: 'Poppins', tifinagh: 'Noto Sans Tifinagh' },
+          artboards: DEVICES,
+        },
+        null,
+        2,
+      )}\n`,
+    );
 
   if (withOverview) writeOverview(manifest);
   const screens = SCREENS.length;

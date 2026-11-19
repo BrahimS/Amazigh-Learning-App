@@ -1,0 +1,48 @@
+{
+  "id": "com.amazigh.learning.xd",
+  "name": "Amazigh Learning UI",
+  "version": "1.0.0",
+  "description": "Builds the Amazigh Learning design system and iOS screens (variants A and B) as native XD layers from design/xd.",
+  "summary": "Amazigh Learning UI builder",
+  "author": "Brahim S",
+  "main": "main.js",
+  "manifestVersion": 4,
+  "host": [{ "app": "XD", "minVersion": "36.0.0" }],
+  "entrypoints": [
+    {
+      "type": "command",
+      "id": "selectHome",
+      "label": { "default": "Select home artboard" }
+    },
+    {
+      "type": "command",
+      "id": "buildAmazighTest",
+      "label": { "default": "Build test (3 boards of A)" }
+    },
+    {
+      "type": "command",
+      "id": "buildAmazighA",
+      "label": { "default": "Build variant A" }
+    },
+    {
+      "type": "command",
+      "id": "buildAmazighB",
+      "label": { "default": "Build variant B" }
+    },
+    {
+      "type": "command",
+      "id": "clearDocument",
+      "label": { "default": "Clear document (removes every layer)" }
+    },
+    {
+      "type": "command",
+      "id": "dumpAmazighInfo",
+      "label": { "default": "Dump document info" }
+    },
+    {
+      "type": "command",
+      "id": "exportAmazighPreviews",
+      "label": { "default": "Export previews (PNG)" }
+    }
+  ]
+}
