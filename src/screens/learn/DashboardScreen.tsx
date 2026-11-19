@@ -126,7 +126,7 @@ function CourseCard({
               style={[
                 styles.levelText,
                 {
-                  color: theme.colors.secondary,
+                  color: theme.colors.secondaryText,
                   fontFamily: theme.fonts.latin.semiBold,
                 },
               ]}

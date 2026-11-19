@@ -20,10 +20,10 @@
         "expo-font",
         {
           "fonts": [
-            "./src/assets/fonts/Poppins-Regular.ttf",
-            "./src/assets/fonts/Poppins-Medium.ttf",
-            "./src/assets/fonts/Poppins-SemiBold.ttf",
-            "./src/assets/fonts/Poppins-Bold.ttf",
+            "./src/assets/fonts/Inter-Regular.ttf",
+            "./src/assets/fonts/Inter-Medium.ttf",
+            "./src/assets/fonts/Inter-SemiBold.ttf",
+            "./src/assets/fonts/Inter-Bold.ttf",
             "./src/assets/fonts/NotoSansTifinagh-Regular.ttf"
           ]
         }
