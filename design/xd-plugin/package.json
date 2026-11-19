@@ -1,0 +1,13 @@
+{
+  "name": "amazigh-learning-xd-plugin-tools",
+  "private": true,
+  "description": "Converts design/xd and design/xd-variant-b SVG boards into data for the Adobe XD plugin.",
+  "type": "module",
+  "scripts": {
+    "data": "node svg-to-xd-data.mjs"
+  },
+  "devDependencies": {
+    "fast-xml-parser": "4.5.0",
+    "svgpath": "2.6.0"
+  }
+}

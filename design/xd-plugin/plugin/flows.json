@@ -1,0 +1,406 @@
+{
+  "tabs": {
+    "Tab / Learn": "3-learning/01-dashboard",
+    "Tab / Vocabulary": "4-vocabulary-and-tifinagh/01-vocabulary-library",
+    "Tab / Tifinagh": "4-vocabulary-and-tifinagh/06-tifinagh-alphabet",
+    "Tab / Culture": "3-learning/16-culture-home",
+    "Tab / Profile": "5-profile-and-gamification/01-profile"
+  },
+  "links": [
+    [
+      "2-onboarding-and-auth/01-splash",
+      "Background",
+      "2-onboarding-and-auth/02-onboarding-1"
+    ],
+    [
+      "2-onboarding-and-auth/02-onboarding-1",
+      "Button / primary",
+      "2-onboarding-and-auth/03-onboarding-2"
+    ],
+    [
+      "2-onboarding-and-auth/03-onboarding-2",
+      "Button / primary",
+      "2-onboarding-and-auth/04-onboarding-3"
+    ],
+    [
+      "2-onboarding-and-auth/04-onboarding-3",
+      "Button / primary",
+      "2-onboarding-and-auth/05-welcome"
+    ],
+    [
+      "2-onboarding-and-auth/05-welcome",
+      "Button / primary",
+      "2-onboarding-and-auth/06-register"
+    ],
+    [
+      "2-onboarding-and-auth/05-welcome",
+      "Button / outline",
+      "2-onboarding-and-auth/07-login"
+    ],
+    [
+      "2-onboarding-and-auth/06-register",
+      "Header",
+      "2-onboarding-and-auth/05-welcome"
+    ],
+    [
+      "2-onboarding-and-auth/06-register",
+      "Button / primary",
+      "2-onboarding-and-auth/10-dialect-selection"
+    ],
+    [
+      "2-onboarding-and-auth/07-login",
+      "Header",
+      "2-onboarding-and-auth/05-welcome"
+    ],
+    [
+      "2-onboarding-and-auth/07-login",
+      "Button / primary",
+      "2-onboarding-and-auth/08-login-error"
+    ],
+    [
+      "2-onboarding-and-auth/07-login",
+      "Button / outline",
+      "3-learning/01-dashboard"
+    ],
+    [
+      "2-onboarding-and-auth/07-login",
+      "Forgot password?",
+      "2-onboarding-and-auth/09-forgot-password"
+    ],
+    [
+      "2-onboarding-and-auth/08-login-error",
+      "Header",
+      "2-onboarding-and-auth/05-welcome"
+    ],
+    [
+      "2-onboarding-and-auth/08-login-error",
+      "Button / primary",
+      "3-learning/01-dashboard"
+    ],
+    [
+      "2-onboarding-and-auth/08-login-error",
+      "Button / outline",
+      "3-learning/01-dashboard"
+    ],
+    [
+      "2-onboarding-and-auth/08-login-error",
+      "Forgot password?",
+      "2-onboarding-and-auth/09-forgot-password"
+    ],
+    [
+      "2-onboarding-and-auth/09-forgot-password",
+      "Header",
+      "2-onboarding-and-auth/07-login"
+    ],
+    [
+      "2-onboarding-and-auth/09-forgot-password",
+      "Button / primary",
+      "2-onboarding-and-auth/07-login"
+    ],
+    [
+      "2-onboarding-and-auth/10-dialect-selection",
+      "Header",
+      "2-onboarding-and-auth/06-register"
+    ],
+    [
+      "2-onboarding-and-auth/10-dialect-selection",
+      "Button / primary",
+      "2-onboarding-and-auth/11-learning-preferences"
+    ],
+    [
+      "2-onboarding-and-auth/11-learning-preferences",
+      "Header",
+      "2-onboarding-and-auth/10-dialect-selection"
+    ],
+    [
+      "2-onboarding-and-auth/11-learning-preferences",
+      "Button / primary",
+      "3-learning/02-dashboard-loading"
+    ],
+    [
+      "3-learning/02-dashboard-loading",
+      "Background",
+      "3-learning/01-dashboard"
+    ],
+    [
+      "3-learning/01-dashboard",
+      "ContinueCard",
+      "3-learning/05-lesson-content-step"
+    ],
+    ["3-learning/01-dashboard", "CourseCard", "3-learning/03-course-details"],
+    ["3-learning/03-course-details", "Header", "3-learning/01-dashboard"],
+    [
+      "3-learning/03-course-details",
+      "ModuleCard / Module 1",
+      "3-learning/04-module"
+    ],
+    ["3-learning/04-module", "Header", "3-learning/03-course-details"],
+    [
+      "3-learning/04-module",
+      "LessonRow / Introducing yourself",
+      "3-learning/05-lesson-content-step"
+    ],
+    [
+      "3-learning/04-module",
+      "Button / secondary",
+      "3-learning/05-lesson-content-step"
+    ],
+    [
+      "3-learning/05-lesson-content-step",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/05-lesson-content-step",
+      "Button / primary",
+      "3-learning/06-exercise-mcq"
+    ],
+    ["3-learning/06-exercise-mcq", "ExerciseHeader", "3-learning/04-module"],
+    [
+      "3-learning/06-exercise-mcq",
+      "OptionCard / azul",
+      "3-learning/07-exercise-mcq-selected"
+    ],
+    [
+      "3-learning/06-exercise-mcq",
+      "OptionCard / amaziɣ",
+      "3-learning/09-exercise-mcq-incorrect"
+    ],
+    [
+      "3-learning/07-exercise-mcq-selected",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/07-exercise-mcq-selected",
+      "Button / primary",
+      "3-learning/08-exercise-mcq-correct"
+    ],
+    [
+      "3-learning/08-exercise-mcq-correct",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/08-exercise-mcq-correct",
+      "Button / success",
+      "3-learning/10-exercise-translation"
+    ],
+    [
+      "3-learning/09-exercise-mcq-incorrect",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/09-exercise-mcq-incorrect",
+      "Button / danger",
+      "3-learning/10-exercise-translation"
+    ],
+    [
+      "3-learning/10-exercise-translation",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/10-exercise-translation",
+      "Button / primary",
+      "3-learning/11-exercise-matching"
+    ],
+    [
+      "3-learning/11-exercise-matching",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/11-exercise-matching",
+      "Button / primary",
+      "3-learning/12-exercise-sentence"
+    ],
+    [
+      "3-learning/12-exercise-sentence",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/12-exercise-sentence",
+      "Button / primary",
+      "3-learning/13-exercise-fill-in-the-blank"
+    ],
+    [
+      "3-learning/13-exercise-fill-in-the-blank",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/13-exercise-fill-in-the-blank",
+      "Button / primary",
+      "3-learning/14-exercise-listening"
+    ],
+    [
+      "3-learning/14-exercise-listening",
+      "ExerciseHeader",
+      "3-learning/04-module"
+    ],
+    [
+      "3-learning/14-exercise-listening",
+      "Button / primary",
+      "3-learning/15-lesson-complete"
+    ],
+    [
+      "3-learning/15-lesson-complete",
+      "Button / primary",
+      "5-profile-and-gamification/05-daily-goal-celebration"
+    ],
+    [
+      "3-learning/15-lesson-complete",
+      "Button / outline",
+      "3-learning/05-lesson-content-step"
+    ],
+    [
+      "5-profile-and-gamification/05-daily-goal-celebration",
+      "Button / primary",
+      "3-learning/01-dashboard"
+    ],
+    [
+      "3-learning/16-culture-home",
+      "ArticleCard / Yennayer",
+      "3-learning/17-article"
+    ],
+    ["3-learning/17-article", "Header", "3-learning/16-culture-home"],
+    [
+      "4-vocabulary-and-tifinagh/01-vocabulary-library",
+      "Chip / Flashcards",
+      "4-vocabulary-and-tifinagh/04-flashcards-front"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/01-vocabulary-library",
+      "TextInput",
+      "4-vocabulary-and-tifinagh/02-vocabulary-library-empty"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/01-vocabulary-library",
+      "WordCard / azul",
+      "4-vocabulary-and-tifinagh/03-word-details"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/02-vocabulary-library-empty",
+      "Chip / Flashcards",
+      "4-vocabulary-and-tifinagh/04-flashcards-front"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/02-vocabulary-library-empty",
+      "Button / outline",
+      "4-vocabulary-and-tifinagh/01-vocabulary-library"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/03-word-details",
+      "Header",
+      "4-vocabulary-and-tifinagh/01-vocabulary-library"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/03-word-details",
+      "Button / outline",
+      "4-vocabulary-and-tifinagh/04-flashcards-front"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/04-flashcards-front",
+      "Header",
+      "4-vocabulary-and-tifinagh/01-vocabulary-library"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/04-flashcards-front",
+      "Flashcard",
+      "4-vocabulary-and-tifinagh/05-flashcards-back"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/04-flashcards-front",
+      "Button / primary",
+      "4-vocabulary-and-tifinagh/05-flashcards-back"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/05-flashcards-back",
+      "Header",
+      "4-vocabulary-and-tifinagh/01-vocabulary-library"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/05-flashcards-back",
+      "Button / outline",
+      "4-vocabulary-and-tifinagh/04-flashcards-front"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/05-flashcards-back",
+      "Button / success",
+      "4-vocabulary-and-tifinagh/04-flashcards-front"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/06-tifinagh-alphabet",
+      "Chip / Quiz",
+      "4-vocabulary-and-tifinagh/08-letter-quiz"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/06-tifinagh-alphabet",
+      "LetterTile / z / selected",
+      "4-vocabulary-and-tifinagh/07-letter-details"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/07-letter-details",
+      "Header",
+      "4-vocabulary-and-tifinagh/06-tifinagh-alphabet"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/07-letter-details",
+      "WordCard / azul",
+      "4-vocabulary-and-tifinagh/03-word-details"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/07-letter-details",
+      "Button / outline",
+      "4-vocabulary-and-tifinagh/08-letter-quiz"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/08-letter-quiz",
+      "ExerciseHeader",
+      "4-vocabulary-and-tifinagh/06-tifinagh-alphabet"
+    ],
+    [
+      "4-vocabulary-and-tifinagh/08-letter-quiz",
+      "Button / success",
+      "4-vocabulary-and-tifinagh/06-tifinagh-alphabet"
+    ],
+    [
+      "5-profile-and-gamification/01-profile",
+      "ListRow / Achievements",
+      "5-profile-and-gamification/03-achievements"
+    ],
+    [
+      "5-profile-and-gamification/01-profile",
+      "ListRow / Statistics",
+      "5-profile-and-gamification/04-statistics"
+    ],
+    [
+      "5-profile-and-gamification/01-profile",
+      "ListRow / Settings",
+      "5-profile-and-gamification/02-settings"
+    ],
+    [
+      "5-profile-and-gamification/01-profile",
+      "Button / outline",
+      "2-onboarding-and-auth/05-welcome"
+    ],
+    [
+      "5-profile-and-gamification/02-settings",
+      "Header",
+      "5-profile-and-gamification/01-profile"
+    ],
+    [
+      "5-profile-and-gamification/03-achievements",
+      "Header",
+      "5-profile-and-gamification/01-profile"
+    ],
+    [
+      "5-profile-and-gamification/04-statistics",
+      "Header",
+      "5-profile-and-gamification/01-profile"
+    ]
+  ]
+}
