@@ -130,7 +130,7 @@ export function AchievementsScreen() {
                   style={[
                     styles.criteriaText,
                     {
-                      color: theme.colors.secondary,
+                      color: theme.colors.secondaryText,
                       fontFamily: theme.fonts.latin.semiBold,
                     },
                   ]}

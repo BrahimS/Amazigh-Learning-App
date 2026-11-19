@@ -17,7 +17,7 @@ describe('AmazighText', () => {
   it('renders Latin text with the bundled Latin font', async () => {
     await render(<AmazighText>Hello</AmazighText>);
     const style = StyleSheet.flatten(screen.getByText('Hello').props.style);
-    expect(style.fontFamily).toBe('Poppins-Regular');
+    expect(style.fontFamily).toBe('Inter-Regular');
   });
 });
 

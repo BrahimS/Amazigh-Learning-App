@@ -261,7 +261,7 @@ export function LoginScreen() {
             style={[
               styles.link,
               {
-                color: theme.colors.secondary,
+                color: theme.colors.secondaryText,
                 fontFamily: theme.fonts.latin.medium,
               },
             ]}

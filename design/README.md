@@ -18,9 +18,13 @@ named XD layers (iOS size only):
 | A       | Current app (`src/theme`): saffron `#B45309`, Atlas blue `#1D4ED8`, argan `#15803D`  | Poppins    | `A / …` top |
 | B       | Master prompt: forest `#176B55`, terracotta `#D66B3D`, ochre `#E8B94F`, sand, indigo | Inter      | `B / …`     |
 
+**Variant B is approved** (2026-11-19) and is the app theme in `src/theme`. The
+`B / …` artboards in the `.xd` include the product owner's edits (motif marks
+removed on 11 screens, spacing tweaks), which are not in the generated SVGs:
+the `.xd` is the source of truth.
+
 Both variants are wired as a clickable prototype (Prototype mode → Play),
-starting at `A / … 01-splash`; to play variant B, set `B / … 01-splash` as the
-home screen. Install Poppins, Inter and Noto Sans Tifinagh before opening it.
+starting at `B / … 01-splash`. Install Poppins, Inter and Noto Sans Tifinagh before opening it.
 
 ## Layout
 

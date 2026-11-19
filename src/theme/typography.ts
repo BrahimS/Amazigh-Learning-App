@@ -4,10 +4,10 @@
  */
 export const fonts = {
   latin: {
-    regular: 'Poppins-Regular',
-    medium: 'Poppins-Medium',
-    semiBold: 'Poppins-SemiBold',
-    bold: 'Poppins-Bold',
+    regular: 'Inter-Regular',
+    medium: 'Inter-Medium',
+    semiBold: 'Inter-SemiBold',
+    bold: 'Inter-Bold',
   },
   tifinagh: {
     regular: 'NotoSansTifinagh-Regular',

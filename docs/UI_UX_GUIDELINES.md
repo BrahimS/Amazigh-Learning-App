@@ -10,19 +10,24 @@ Design is produced in **Adobe XD** and handed off to development as design token
 4. **Accessible by default**: WCAG 2.1 AA contrast, 44×44 pt touch targets, screen-reader labels.
 5. **Motivating, not noisy**: subtle celebrations for XP, streaks and achievements.
 
-## Design tokens (initial proposal, finalised in "Create color palette and typography")
+## Design tokens (approved: design variant B)
 
-| Token | Proposal |
-|-------|---------|
-| `color.primary` | Saffron / ochre (Amazigh flag yellow) |
-| `color.secondary` | Atlas blue (flag blue) |
-| `color.accent` | Argan green (flag green) |
-| `color.danger` | Red (flag ⵣ red) |
-| `color.background` | Warm off-white |
-| `font.latin` | Inter / Poppins |
-| `font.tifinagh` | Noto Sans Tifinagh |
-| `spacing` | 4-pt scale (4, 8, 12, 16, 24, 32) |
-| `radius` | 8 / 16 / 24 |
+Approved by the product owner on 2026-11-19 with his edits in
+[`design/Amazigh-Learning-Prototype.xd`](../design/Amazigh-Learning-Prototype.xd) (`B / …` artboards).
+
+| Token                                              | Value                                           |
+| -------------------------------------------------- | ----------------------------------------------- |
+| `color.primary` / `color.accent` / `color.success` | Forest green `#176B55`                          |
+| `color.secondary`                                  | Terracotta `#D66B3D` (UI and large text)        |
+| `color.secondaryText`                              | Dark terracotta `#9C4221` (text, 5.8:1 on sand) |
+| `color.primaryLight`                               | Ochre `#E8B94F` (decorative / large text only)  |
+| `color.background`                                 | Sand `#F6F0E5`                                  |
+| `color.textPrimary`                                | Indigo `#273447`                                |
+| `color.danger`                                     | Red `#B91C1C`                                   |
+| `font.latin`                                       | Inter                                           |
+| `font.tifinagh`                                    | Noto Sans Tifinagh                              |
+| `spacing`                                          | 4-pt scale (4, 8, 12, 16, 24, 32)               |
+| `radius`                                           | 8 / 16 / 24                                     |
 
 ## Adobe XD organisation
 

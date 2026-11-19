@@ -1,33 +1,38 @@
 /**
- * Color tokens — mirror `docs/UI_UX_GUIDELINES.md`.
+ * Color tokens — approved design variant B (`design/Amazigh-Learning-Prototype.xd`).
  * Text colors are chosen to meet WCAG 2.1 AA contrast on `background`/`surface`.
  */
 export const colors = {
-  /** Saffron / ochre (Amazigh flag yellow) */
-  primary: '#B45309',
-  primaryLight: '#F59E0B',
-  /** Atlas blue (flag blue) */
-  secondary: '#1D4ED8',
-  secondaryLight: '#93C5FD',
-  /** Argan green (flag green) */
-  accent: '#15803D',
-  accentLight: '#86EFAC',
+  /** Forest green */
+  primary: '#176B55',
+  /** Ochre (decorative / large text only) */
+  primaryLight: '#E8B94F',
+  /** Terracotta */
+  secondary: '#D66B3D',
+  secondaryLight: '#EBA88A',
+  /** Dark terracotta for text: terracotta itself is 3.1:1 on sand, below AA */
+  secondaryText: '#9C4221',
+  /** Forest green (success) */
+  accent: '#176B55',
+  accentLight: '#8CC7B5',
   /** Red (flag ⵣ red) */
   danger: '#B91C1C',
   dangerLight: '#FCA5A5',
-  success: '#15803D',
+  success: '#176B55',
   warning: '#B45309',
 
-  background: '#FAF7F2',
+  /** Sand */
+  background: '#F6F0E5',
   surface: '#FFFFFF',
-  border: '#E7E5E4',
+  border: '#E6DCCB',
 
-  textPrimary: '#1C1917',
-  textSecondary: '#57534E',
+  /** Indigo */
+  textPrimary: '#273447',
+  textSecondary: '#5B6577',
   textInverse: '#FFFFFF',
 
   /** Exercise feedback states */
-  correct: '#15803D',
+  correct: '#176B55',
   incorrect: '#B91C1C',
 } as const;
 
